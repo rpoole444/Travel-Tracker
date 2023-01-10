@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link  href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="src/css/styles.css">
-  <title>Travel Tracker</title>
-</head>
-<body>
-  <aside class="input-field">
-    <!-- all inputs, submit button -->
-  </aside>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="src/css/styles.css">
+    <title>Travel Tracker</title>
+  </head>
+  <body>
+    <form class="input-field">
+      <h2>Plan a Trip</h2>
+      <fieldset>
+        <!--empty box collecting total trip cost, innerText field for total money spent this year -->
+        <label for="destination">Destination:</label>
+        <input type="" name="destination" id="destination">
+        <label for="length">Length of trip:</label>
+        <input type="number" name="length" id="length">      
+        <label for="travelers">Travelers</label>
+        <input type="number" name="travelers" id="length">
+        <label for="departure-date">Departure Date</label>
+        <input type="date" name="departure-date" id="departure-date">
+        <button>SUBMIT</button>
+        <!-- the docs say this ^button should be and input as well -->
+      </fieldset>
+      <p>total cost of planned trip</p>
+      <section class="total-cost-display"></section>
+      <p>*prices include 10% booking fee</p> 
+      <p class="total-spent-ty">$---- spent this year</p>
+    </form>
+    <section></section>
+    <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+    <script src="bundle.js"></script>
 
-</body>
+  </body>
 </html>
