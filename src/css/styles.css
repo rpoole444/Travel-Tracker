@@ -83,8 +83,9 @@ fieldset {
 .present-trips,
 .past-trips {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-around;
   height:26vh ;
   width:65vw ;
   border: 2px solid purple;
