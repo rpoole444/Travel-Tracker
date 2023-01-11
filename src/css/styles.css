@@ -10,18 +10,47 @@
 
 body {
   display: flex;
+  flex-direction: column;
   height: 95vh;
   width: 100vw;
 }
 
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100vw;
+  height: 85vh; 
+}
+
+/* header */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height:15vh;
+}
+
+h1 {
+  padding: 3vh 0 0 3vw;
+}
+.user-basic {
+  padding: 3vh 3vw 0  0;
+}
+/* input fields/left-side */
 form {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 80%;
-  width: 37%;
+  height: 80vh;
+  width: 23vw;
   border: 2px solid red;
+}
+
+select {
+
 }
 
 fieldset {
@@ -29,7 +58,47 @@ fieldset {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  height: 36%;
-  width: 66%
+  height: 50%;
+  width: 66%;
+}
 
+.total-cost-display {
+  width: 15vw;
+  height: 10vh;
+  border: 2px solid green;
+}
+/* posted section/right side */
+
+.your-trips {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 80vh;
+  width: 65vw;
+  border: 2px solid blue;
+}
+
+.upcoming-trips,
+.present-trips,
+.past-trips {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height:26vh ;
+  width:65vw ;
+  border: 2px solid purple;
+}
+
+.location-img {
+  height: 8vh;
+  width: 9vw;
+  border: 2px solid brown;
+}
+.location-card{
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  height: 15vh;
+  width:17vw;
 }
