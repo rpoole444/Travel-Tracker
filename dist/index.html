@@ -1,21 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link  href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="src/css/styles.css">
-  <title>Travel Tracker</title>
-</head>
-<body>
-  <aside class="input-field">
-    <!-- all inputs, submit button -->
-  </aside>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
-
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="src/css/styles.css">
+    <!-- <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.core.min.css"> -->
+    <title>Travel Tracker</title>
+  </head>
+  <body>
+    <header>
+      <h1>Travel Tracker</h1>
+      <div class="user-basic">
+        <h2>Hello Reid!</h2>
+        <p>Today's Date is Feb. 5th 2023</p>
+      </div>
+    </header>
+    <main>
+      <form class="input-field">
+        <h2>Plan a Trip</h2>
+        <fieldset>
+          <label for="destination">Destination:</label>
+          <select name="destinations" id="destinations-dd">
+            <option value="">destination</option>
+            <!-- innerText here -->
+          </select>
+          <label for="length">Length of trip:</label>
+          <input type="number" name="length" id="length">      
+          <label for="travelers">Travelers</label>
+          <input type="number" name="travelers" id="length">
+          <label for="departure-date">Departure Date</label>
+          <input type="date" name="departure-date" id="departure-date">
+          <button>SUBMIT</button>
+          <!-- the docs say this ^button should be and input as well -->
+        </fieldset>
+        <p>total cost of planned trip</p>
+        <section class="total-cost-display"></section>
+        <p>*prices include 10% booking fee</p> 
+        <p class="total-spent-ty">$---- spent this year</p>
+      </form>
+      <section class="your-trips">
+        <h2>Your Trips</h2>
+        <h2>Upcoming Trips</h2>
+        <section class="upcoming-trips">
+          <article class="location-card">
+              <div class="location-img"></div>
+                <div>
+                  <p class="location">Denver, CO</p>
+                  <p class="date">2/5/2023</p>
+                  <p class="travel-num">2 travelers</p>
+                </div>
+              </div>
+              <p>pending...</p>
+          </article>
+        </section>
+        <h2>Present Trips</h2>
+        <section class="present-trips">
+          <article class="location-card">
+              <div class="location-img"></div>
+                <div>
+                  <p class="location">Denver, CO</p>
+                  <p class="date">2/5/2023</p>
+                  <p class="travel-num">2 travelers</p>
+                </div>
+              </div>
+              <p>Completed...</p>
+          </article>
+        </section>
+        <h2>Past Trips</h2>
+        <section class="past-trips">
+          <article class="location-card">
+              <div class="location-img"></div>
+                <div>
+                  <p class="location">Denver, CO</p>
+                  <p class="date">2/5/2023</p>
+                  <p class="travel-num">2 travelers</p>
+                </div>
+              </div>
+              <p>Completed!</p>
+          </article>
+           <article class="location-card">
+              <div class="location-img"></div>
+                <div>
+                  <p class="location">Denver, CO</p>
+                  <p class="date">2/5/2023</p>
+                  <p class="travel-num">2 travelers</p>
+                </div>
+              </div>
+              <p>pending...</p>
+          </article>
+           <article class="location-card">
+              <div class="location-img"></div>
+                <div>
+                  <p class="location">Denver, CO</p>
+                  <p class="date">2/5/2023</p>
+                  <p class="travel-num">2 travelers</p>
+                </div>
+              </div>
+              <p>pending...</p>
+          </article>
+        </section>
+      </section>
+    </main>
+    <script src="bundle.js"></script>
+  </body>
 </html>
