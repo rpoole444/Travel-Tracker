@@ -7,7 +7,6 @@ class Traveler {
       this.trips = trips.filter(obj =>obj.userID === this.id)
     }
 
-
 getTripItinerary(time) {
  const filteredTrip = this.trips.filter(trip => {
     if(time === "past"){
@@ -17,7 +16,6 @@ getTripItinerary(time) {
       return dayjs(trip.date).isAfter("2021/1/31")
     } 
   });
-  // console.log(filteredTrip)
   return filteredTrip
 }
 
@@ -25,7 +23,6 @@ checkPendingStatus(){
   const pendingTrips = this.trips.filter(trip => trip.status === "pending")
   return pendingTrips
 }
-
 
 totalYearlySpent(userTrips, destinations){
   let sum = 0
@@ -41,6 +38,5 @@ totalYearlySpent(userTrips, destinations){
     return `$${answer}`
 }
 }
-
 
 module.exports = Traveler
