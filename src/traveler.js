@@ -1,6 +1,6 @@
 //"God CLas"
 const dayjs = require('dayjs')
-const destinationRepo = require('../src/destinationRepo')
+const Destinations = require('./Destinations')
 class Traveler {
     constructor(travelerData, trips){
       this.id = travelerData.id
@@ -24,24 +24,24 @@ getTripItinerary(time) {
 
 checkPendingStatus(){
   const pendingTrips = this.trips.filter(trip => trip.status === "pending")
- 
   return pendingTrips
 }
 
 
-totalYearlySpent(){
-  const destination = destinationRepo.getDestinationById(num)
-  console.log(destination)
-
-    destinationRepo.destinations.forEach(location => {
-      console.log(destination)
-    this.trips.forEach(trip => {
-
- })
-  })
-// const tripbyId//need to calculate trom the trips data and include a tracel agents 10% fee
+totalYearlySpent(userTrips, destinations){
+  let sum = 0
+  userTrips.forEach(trip => {
+     destinations.destinations.forEach(destination => {
+      if(trip.destinationID === destination.id && trip.status === "approved"){
+        sum += (destination.estimatedLodgingCostPerDay * trip.duration) + (destination.estimatedFlightCostPerPerson * trip.travelers)
+      }
+     })
+    })
+    let withBookingFee = sum * .10
+    let answer = withBookingFee + sum
+    return `$${answer}`
 }
 }
 
 
-module.exports = Traveler, destinationRepo
+module.exports = Traveler, Destinations
