@@ -1,6 +1,5 @@
 //"God CLas"
 const dayjs = require('dayjs')
-const Destinations = require('./Destinations')
 class Traveler {
     constructor(travelerData, trips){
       this.id = travelerData.id
@@ -44,4 +43,4 @@ totalYearlySpent(userTrips, destinations){
 }
 
 
-module.exports = Traveler, Destinations
+module.exports = Traveler
