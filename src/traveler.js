@@ -8,7 +8,7 @@ class Traveler {
 
 
 getTripItinerary(time) {
- const filteredTrip =this.trips.filter(trip => {
+ const filteredTrip = this.trips.filter(trip => {
     if(time === "past"){
       return dayjs(trip.date).isBefore("2021/1/31")
     } else if(time === "upcoming"){

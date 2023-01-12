@@ -1,6 +1,8 @@
 class Trip {
-  constructor() {
-    
+  constructor(trips) {
+    this.trips = trips
   }
+
+  // getTripsByID
 }
 module.exports = Trip;
