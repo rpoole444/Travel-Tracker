@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const destinationRepo = require("../src/destinationRepo");
+const Destinations = require("../src/Destinations");
 const Traveler = require("../src/Traveler")
 // const Trip = require("../src/Trip")
 
@@ -12,7 +12,7 @@ const Traveler = require("../src/Traveler")
     let trip5;
     let traveler;
     let travelerData;
-    let travelerTrips;
+    let trips;
     let destinations;
     let destination1;
     let destination2;
@@ -31,12 +31,12 @@ const Traveler = require("../src/Traveler")
           status: "approved",
         };
         
-        destination1 = new destinationRepo({
+        destination1 = {
           id: 49,
           destination: "Castries, St Lucia",
           estimatedLodgingCostPerDay: 650,
           estimatedFlightCostPerPerson: 90,
-        });
+        };
 
        trip2 = {
           id: 46,
@@ -48,12 +48,12 @@ const Traveler = require("../src/Traveler")
           status: "approved",
         };
         
-        destination2 = new destinationRepo({
+        destination2 = {
           id: 33,
           destination: "Brussels, Belgium",
           estimatedLodgingCostPerDay: 1000,
           estimatedFlightCostPerPerson: 110,
-        });
+        };
 
        trip3 = {
           id: 48,
@@ -65,12 +65,12 @@ const Traveler = require("../src/Traveler")
           status: "approved",
        };
 
-       destination3 = new destinationRepo({
+       destination3 = {
          id: 22,
          destination: "Rome, Italy",
          estimatedLodgingCostPerDay: 90,
          estimatedFlightCostPerPerson: 650,
-       });
+       };
        
        trip4 = {
          id: 48,
@@ -82,12 +82,12 @@ const Traveler = require("../src/Traveler")
          status: "approved",
         };
 
-        destination4 = new destinationRepo({
+        destination4 = {
           id: 11,
           destination: "Mikonos, Greece",
           estimatedLodgingCostPerDay: 140,
           estimatedFlightCostPerPerson: 1000,
-        });
+        };
         
         trip5 = {
            id: 48,
@@ -99,21 +99,21 @@ const Traveler = require("../src/Traveler")
            status: "pending",
         };
 
-        destination5 = new destinationRepo({
+        destination5 ={
           id: 14,
           destination: "Marrakesh, Morocco",
           estimatedLodgingCostPerDay: 70,
           estimatedFlightCostPerPerson: 830
-        });
+        };
 
 
       travelerData = {
         id: 44,
         name: "Ham Leadbeater",
       }
-      destinations = [destination1, destination2, destination3, destination4, destination5]
-      travelerTrips = [trip1, trip2, trip3, trip4, trip5]
-      traveler = new Traveler(travelerData, travelerTrips)
+      destinations = new Destinations([destination1, destination2, destination3, destination4, destination5])
+      trips = [trip1, trip2, trip3, trip4, trip5]
+      traveler = new Traveler(travelerData, trips)
     });
 
     it("should be a function", () => {
@@ -149,7 +149,7 @@ const Traveler = require("../src/Traveler")
       expect(traveler.checkPendingStatus("pending")).to.deep.equal([trip5])
     });
 
-    it.skip("should have the yearly total spent traveling", () => {
-      expect(traveler.totalYearlySpent('destinations')).to.equal()
+    it("should have the yearly total spent traveling", () => {
+      expect(traveler.totalYearlySpent(traveler.trips, destinations)).to.equal("$23243")
     });
   });
