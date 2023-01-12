@@ -1,6 +1,8 @@
 const { expect } = require("chai");
+const destinationRepo = require("../src/destinationRepo");
 const Traveler = require("../src/Traveler")
 // const Trip = require("../src/Trip")
+
 
   describe("traveler", () => {
     let trip1;
@@ -29,12 +31,12 @@ const Traveler = require("../src/Traveler")
           status: "approved",
         };
         
-        destination1 = {
+        destination1 = new destinationRepo({
           id: 49,
           destination: "Castries, St Lucia",
           estimatedLodgingCostPerDay: 650,
           estimatedFlightCostPerPerson: 90,
-        };
+        });
 
        trip2 = {
           id: 46,
@@ -46,12 +48,12 @@ const Traveler = require("../src/Traveler")
           status: "approved",
         };
         
-        destination2 ={
+        destination2 = new destinationRepo({
           id: 33,
           destination: "Brussels, Belgium",
           estimatedLodgingCostPerDay: 1000,
           estimatedFlightCostPerPerson: 110,
-        };
+        });
 
        trip3 = {
           id: 48,
@@ -63,12 +65,12 @@ const Traveler = require("../src/Traveler")
           status: "approved",
        };
 
-       destination3 = {
+       destination3 = new destinationRepo({
          id: 22,
          destination: "Rome, Italy",
          estimatedLodgingCostPerDay: 90,
          estimatedFlightCostPerPerson: 650,
-       };
+       });
        
        trip4 = {
          id: 48,
@@ -80,12 +82,12 @@ const Traveler = require("../src/Traveler")
          status: "approved",
         };
 
-        destination4 = {
+        destination4 = new destinationRepo({
           id: 11,
           destination: "Mikonos, Greece",
           estimatedLodgingCostPerDay: 140,
           estimatedFlightCostPerPerson: 1000,
-        };
+        });
         
         trip5 = {
            id: 48,
@@ -97,12 +99,12 @@ const Traveler = require("../src/Traveler")
            status: "pending",
         };
 
-        destination5 = {
+        destination5 = new destinationRepo({
           id: 14,
           destination: "Marrakesh, Morocco",
           estimatedLodgingCostPerDay: 70,
           estimatedFlightCostPerPerson: 830
-        };
+        });
 
 
       travelerData = {
@@ -131,6 +133,7 @@ const Traveler = require("../src/Traveler")
     });
 
     it("should have trips", () => {
+      //trip4 is ommitted because it doesn't belong to this user
       expect(traveler.trips).to.deep.equal([trip1,trip2,trip3, trip5])
     });
 
@@ -143,10 +146,10 @@ const Traveler = require("../src/Traveler")
     });
 
     it("should have pending trips", () => {
-      expect(traveler.getTripItinerary("pending")).to.deep.equal([trip5])
+      expect(traveler.checkPendingStatus("pending")).to.deep.equal([trip5])
     });
 
     it.skip("should have the yearly total spent traveling", () => {
-      expect(traveler.totalYearlySpent()).to.equal()
+      expect(traveler.totalYearlySpent('destinations')).to.equal()
     });
   });
