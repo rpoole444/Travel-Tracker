@@ -3,6 +3,9 @@ class Trip {
     this.trips = trips
   }
 
-  // getTripsByID
+  getTripsByID(id) {
+    const tripsByID = this.trips.filter(trip => trip.userID === id)
+    return tripsByID
+  }
 }
 module.exports = Trip;
