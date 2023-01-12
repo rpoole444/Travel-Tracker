@@ -152,4 +152,6 @@ const Traveler = require("../src/Traveler")
     it("should have the yearly total spent traveling", () => {
       expect(traveler.totalYearlySpent(traveler.trips, destinations)).to.equal("$23243")
     });
+
+    it("should")
   });
