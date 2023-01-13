@@ -1,6 +1,6 @@
 class Trip {
   constructor(trips) {
-    this.trips = trips
+    this.date = trips.date //etc....
   }
 
   getTripsByID(id) {
