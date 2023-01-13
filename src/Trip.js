@@ -1,6 +1,13 @@
 class Trip {
   constructor(trips) {
-    this.date = trips.date //etc....
+    this.id = trips.id
+    this.userID = trips.userID
+    this.destinationID = trips.destinationID
+    this.travelers = trips.travelers
+    this.date = trips.date
+    this.duration = trips.duration
+    this.status = trips.status 
+    this.suggestedActivites = trips.suggestedActivites//etc....
   }
 
   getTripsByID(id) {
