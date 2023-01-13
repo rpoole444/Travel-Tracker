@@ -14,10 +14,10 @@ class Traveler {
 getTripItinerary(time) {
  const filteredTrip = this.trips.filter(trip => {
     if(time === "past"){
-      return dayjs(trip.date).isBefore("2020/1/31")
+      return dayjs(trip.date).isBefore("2021/1/31")
     }
     if(time === "upcoming"){
-      return dayjs(trip.date).isAfter("2020/1/31")
+      return dayjs(trip.date).isAfter("2021/1/31")
     } 
   });
   return filteredTrip
