@@ -69,6 +69,7 @@ const getRandomUser = () => {
 
 const newInstances = () => {
   traveler = new Traveler(getRandomUser(), tripData)//travelerData[0] - replaced with the user who logs in .find
+  console.log(traveler)
   trips = new Trip(tripData)
   destinations = new Destinations(destinationData)
 }
