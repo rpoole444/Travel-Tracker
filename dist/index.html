@@ -10,10 +10,16 @@
     <title>Travel Tracker</title>
   </head>
   <body>
+    <!-- <div class="login" id="login">
+      <h1>Log in here</h1>
+      <input type="email" id="emailInput" placeholder="email">
+      <input type="password">
+      <button></button>
+    </div> -->
     <header>
       <h1>Travel Tracker</h1>
       <div class="user-basic">
-        <h2>Hello Reid!</h2>
+        <h2 class="greeting">Hello Reid!</h2>
         <p>Today's Date is Feb. 5th 2023</p>
       </div>
     </header>
@@ -29,10 +35,10 @@
           <label for="length">Length of trip:</label>
           <input type="number" name="length" id="length">      
           <label for="travelers">Travelers</label>
-          <input type="number" name="travelers" id="length">
+          <input type="number" name="travelers" id="travelers">
           <label for="departure-date">Departure Date</label>
           <input type="date" name="departure-date" id="departure-date">
-          <button>SUBMIT</button>
+          <button class="submit-button"">SUBMIT</button>
           <!-- the docs say this ^button should be and input as well -->
         </fieldset>
         <p>total cost of planned trip</p>
@@ -43,64 +49,12 @@
       <section class="your-trips">
         <h2>Your Trips</h2>
         <h2>Upcoming Trips</h2>
-        <section class="upcoming-trips">
-          <article class="location-card">
-              <div class="location-img"></div>
-                <div>
-                  <p class="location">Denver, CO</p>
-                  <p class="date">2/5/2023</p>
-                  <p class="travel-num">2 travelers</p>
-                </div>
-              </div>
-              <p>pending...</p>
-          </article>
-        </section>
-        <h2>Present Trips</h2>
-        <section class="present-trips">
-          <article class="location-card">
-              <div class="location-img"></div>
-                <div>
-                  <p class="location">Denver, CO</p>
-                  <p class="date">2/5/2023</p>
-                  <p class="travel-num">2 travelers</p>
-                </div>
-              </div>
-              <p>Completed...</p>
-          </article>
-        </section>
+        <section class="upcoming-trips"></section>
+        <!-- <h2>Present Trips</h2> -->
+        <!-- <section class="present-trips">
+        </section> -->
         <h2>Past Trips</h2>
-        <section class="past-trips">
-          <article class="location-card">
-              <div class="location-img"></div>
-                <div>
-                  <p class="location">Denver, CO</p>
-                  <p class="date">2/5/2023</p>
-                  <p class="travel-num">2 travelers</p>
-                </div>
-              </div>
-              <p>Completed!</p>
-          </article>
-           <article class="location-card">
-              <div class="location-img"></div>
-                <div>
-                  <p class="location">Denver, CO</p>
-                  <p class="date">2/5/2023</p>
-                  <p class="travel-num">2 travelers</p>
-                </div>
-              </div>
-              <p>pending...</p>
-          </article>
-           <article class="location-card">
-              <div class="location-img"></div>
-                <div>
-                  <p class="location">Denver, CO</p>
-                  <p class="date">2/5/2023</p>
-                  <p class="travel-num">2 travelers</p>
-                </div>
-              </div>
-              <p>pending...</p>
-          </article>
-        </section>
+        <section class="past-trips"></section>
       </section>
     </main>
     <script src="bundle.js"></script>
