@@ -1,8 +1,11 @@
 class Trip {
   constructor(trips) {
-    this.trips = trips
+    this.date = trips.date //etc....
   }
 
-  // getTripsByID
+  getTripsByID(id) {
+    const tripsByID = this.trips.filter(trip => trip.userID === id)
+    return tripsByID
+  }
 }
 module.exports = Trip;

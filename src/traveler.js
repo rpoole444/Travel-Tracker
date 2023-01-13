@@ -7,17 +7,19 @@ class Traveler {
       this.trips = trips.filter(obj =>obj.userID === this.id)
     }
 
+  findFirstName() {
+    return this.name.split(" ")[0];
+  }
 
 getTripItinerary(time) {
  const filteredTrip = this.trips.filter(trip => {
     if(time === "past"){
-      return dayjs(trip.date).isBefore("2021/1/31")
+      return dayjs(trip.date).isBefore("2020/1/31")
     }
     if(time === "upcoming"){
-      return dayjs(trip.date).isAfter("2021/1/31")
+      return dayjs(trip.date).isAfter("2020/1/31")
     } 
   });
-  // console.log(filteredTrip)
   return filteredTrip
 }
 
@@ -25,7 +27,6 @@ checkPendingStatus(){
   const pendingTrips = this.trips.filter(trip => trip.status === "pending")
   return pendingTrips
 }
-
 
 totalYearlySpent(userTrips, destinations){
   let sum = 0
@@ -36,11 +37,9 @@ totalYearlySpent(userTrips, destinations){
       }
      })
     })
-    let withBookingFee = sum * .10
-    let answer = withBookingFee + sum
-    return `$${answer}`
+    const withBookingFee = sum * .10
+    return withBookingFee + sum
 }
 }
-
 
 module.exports = Traveler
