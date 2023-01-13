@@ -17,7 +17,7 @@ const upcomingTrips = document.querySelector(".upcoming-trips")
 const presentTrips = document.querySelector(".present-trips")
 const pastTrips = document.querySelector(".past-trips")
 const yearlyCost = document.querySelector(".total-spent-ty")
-
+const tripForm = document.querySelector(".input-field")
 const destinationInput = document.getElementById("destinations-dd")
 const tripLengthInput = document.getElementById("length")
 const amountOfTravelersInput = document.getElementById("travelers")
@@ -51,7 +51,9 @@ const loadPageFunctions = () => {
   //1. hideLoginPage()
   //2. GetRandomUser() or getUserByLoginID
   // getRandomUser()
-  newInstances()
+  newTravelerInstances()
+  newTrips()
+  newDestinations()
   greetUser()
   displayTrips()
   displaySpentThisYear() 
@@ -67,15 +69,15 @@ const getRandomUser = () => {
   return travelerData[getRandomIndex(travelerData)];
 }
 
-const newInstances = () => {
+const newTravelerInstances = () => {
   traveler = new Traveler(getRandomUser(), tripData)//travelerData[0] - replaced with the user who logs in .find
-  console.log(traveler)
-  trips = new Trip(tripData)
-  destinations = new Destinations(destinationData)
 }
 
+const newTrips = () => (trips = new Trip(tripData))
+
+const newDestinations = () => (destinations = new Destinations(destinationData))
+
 const populateTripChoice = () => {
-console.log(destinations.destinations)
 destinations.destinations.forEach(place => {
   destinationInput.innerHTML += `<option>${place.destination}</option>`
 })
@@ -86,20 +88,18 @@ const greetUser = () => {
 }
 
 const displaySpentThisYear = () =>{
-  traveler.trips.forEach(trip => {
-    const userDestination = destinations.getDestinationById(trip.destinationID)
+    //  destinations.getDestinationById(trip.destinationID)
     const amountSpent = traveler.totalYearlySpent(traveler.trips,destinations)
-   
     yearlyCost.innerText = `$${amountSpent} spent this year so far`
-  })
-}
+  }
+
 // getUserByLogin()
 const displayTrips = () => {
   const userUpcomingTrips = traveler.getTripItinerary("upcoming")
   const userPastTrips = traveler.getTripItinerary("past")
   userUpcomingTrips.forEach(trip => {
     const userDestination = destinations.getDestinationById(trip.destinationID)
-    console.log("destination", userDestination)
+
     upcomingTrips.innerHTML += `
     <article class="location-card">
                 <img src="${userDestination.image}"class="location-img">
@@ -130,4 +130,43 @@ const displayTrips = () => {
 
 const fetchApiUrl = (path) => {
   return fetch(`http://localhost:3001/api/v1/${path}`)
+    .then((response) => response.json())
+    .then(data => data)
+    .then((error) => console.log(`${path} error`, error))
 }
+function addNewTripData(newDataEntry) {
+  fetch("http://localhost:3001/api/v1/trips", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newDataEntry),
+  })
+    .then((res) => res.json())
+    .then((data) => data)
+    .then(() =>
+      fetchApiUrl("trips")
+        .then((trip) => (tripData = trip.trips))
+        .then(() => {
+          newTrips();
+          displayTrips();
+          displaySpentThisYear() 
+        })
+    )
+    .catch((err) => console.log("Error!", err));
+}
+
+tripForm.addEventListener("submit", (e) => {
+  console.log(e)
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const newDataEntry = {
+    id: Number(`${trips.id}`),
+    userID: Number(`${trips.userID}`),
+    travelers: Number(formData.get("travelers")),
+    date: dayjs(formData.get("date")).format("YYYY/MM/DD"),
+    duration: Number(formData.get("duration")),
+    status: trips.status,
+    suggetedActivities:[]
+  };
+  addNewTripData(newDataEntry);
+  e.target.reset();
+});
