@@ -137,6 +137,9 @@ const Traveler = require("../src/Traveler")
       expect(traveler.trips).to.deep.equal([trip1,trip2,trip3, trip5])
     });
 
+    it("should be able to have just a First Name", () => {
+      expect(traveler.findFirstName()).to.equal("Ham")
+    })
     it("should have past trips", () => {
       expect(traveler.getTripItinerary("past")).to.deep.equal([trip2])//today is 12/31/20
     });
@@ -150,7 +153,7 @@ const Traveler = require("../src/Traveler")
     });
 
     it("should have the yearly total spent traveling", () => {
-      expect(traveler.totalYearlySpent(traveler.trips, destinations)).to.equal("$23243")
+      expect(traveler.totalYearlySpent(traveler.trips, destinations)).to.equal(23243)
     });
 
     it("should")

@@ -7,6 +7,10 @@ class Traveler {
       this.trips = trips.filter(obj =>obj.userID === this.id)
     }
 
+  findFirstName() {
+    return this.name.split(" ")[0];
+  }
+
 getTripItinerary(time) {
  const filteredTrip = this.trips.filter(trip => {
     if(time === "past"){
@@ -33,9 +37,8 @@ totalYearlySpent(userTrips, destinations){
       }
      })
     })
-    let withBookingFee = sum * .10
-    let answer = withBookingFee + sum
-    return `$${answer}`
+    const withBookingFee = sum * .10
+    return withBookingFee + sum
 }
 }
 
