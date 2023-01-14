@@ -1,0 +1,64 @@
+//--------WIP GATHER EVENT LISTENER info------
+
+function clearForm() {
+  destinationDropDown.value = ""
+  numberOfTravelersInput.value = ""
+  departureDateInput.value = ""
+  lengthOfTripInput.value = ""
+};
+
+const updateData = (data) => {
+  apiCalls.fetchAllData('trips')
+  newTrips()
+  displaySpentThisYear()
+}
+
+const handleTripButton = (e) => {
+  e.preventDefault()
+  const userTrip = createUserTrip()
+   console.log(userTrip)
+
+  console.log(getEstimatedCost())
+  // totalCostDislpay.innerText = `${estimatedCost}`
+}
+
+const getEstimatedCost = (currentTripEntry) => {
+  console.log(currentTripEntry)
+  const estimatedCost = destinations.destinations.reduce((sum, place) => {
+    if(place.id === currentTripEntry.destinationID){
+      sum += (place.estimatedLodgingCostPerDay * currentTripEntry.duration) + (place.estimatedFlightCostPerPerson * currentTripEntry.travelers)
+    }
+    return sum
+  }, 0)
+  console.log(estimatedCost)
+}
+function createUserTrip(event){
+  event.preventDefault()
+  currentTripEntry = {
+    id: Number(postID),//check into number() vs parseInt()
+    userID: Number(traveler.id),
+    destinationID: Number(destinationDropDown.value),
+    travelers: Number(numberOfTravelersInput.value),
+    date: dayjs(departureDateInput.value).format('YYYY/MM/DD'),
+    duration: Number(lengthOfTripInput.value),
+    status: "pending",
+    suggestedActivities: []
+  }
+  
+  // console.log("POSTING TRIP", currentTripEntry)
+
+};
+
+const postNewTrip = () => {
+  apiCalls.addNewTripData(currentTripEntry, "trips")
+  .then(data => updateData(data))
+  .then(() => {
+    postID++
+    console.log("postID", postID)//makesure post is succ before incrmenting ID
+    clearForm()
+  })
+  
+}
+
+estimateTripButton.addEventListener('click', handleTripButton);
+submitButton.addEventListener("click", postNewTrip)

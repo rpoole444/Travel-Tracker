@@ -7,7 +7,7 @@ class Trip {
     this.date = trips.date
     this.duration = trips.duration
     this.status = trips.status 
-    this.suggestedActivites = trips.suggestedActivites//etc....
+    this.suggestedActivites = []//etc....
   }
 
   getTripsByID(id) {
