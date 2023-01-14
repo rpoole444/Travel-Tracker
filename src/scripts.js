@@ -14,17 +14,21 @@ const dayjs = require("dayjs")
 
 const greeting = document.querySelector(".greeting")
 const upcomingTrips = document.querySelector(".upcoming-trips")
-const presentTrips = document.querySelector(".present-trips")
+// const presentTrips = document.querySelector(".present-trips")
 const pastTrips = document.querySelector(".past-trips")
 const yearlyCost = document.querySelector(".total-spent-ty")
 const tripForm = document.querySelector(".input-field")
-const destinationInput = document.getElementById("destinations-dd")
-const tripLengthInput = document.getElementById("length")
-const amountOfTravelersInput = document.getElementById("travelers")
-const departureDateInput = document.getElementById("departure")
+const destinationDropDown = document.querySelector('#destinationsDD');
+const lengthOfTripInput = document.querySelector('#lengthInput');
+const numberOfTravelersInput = document.querySelector('#travelersInput');
+const departureDateInput = document.querySelector('#departureDate')
+const estimateTripButton = document.querySelector('.submit-button');
+
+
 const submitButton = document.querySelector(".sumbit-button")
 const loginButton = document.querySelector
 ("loginbutton")
+
 
 
 // event listener loginbutton click handleLogin
@@ -36,11 +40,14 @@ let trips;
 let tripData;
 let destinations;
 let destinationData;
+let postID;
+let currentTripEntry
 
 apiCalls.fetchAllData().then(data => {
   travelerData = data[0].travelers
   tripData = data[1].trips
   destinationData = data[2].destinations
+  postID = data[1].trips.length + 1
   loadPageFunctions()
 });
 
@@ -79,8 +86,8 @@ const newDestinations = () => (destinations = new Destinations(destinationData))
 
 const populateTripChoice = () => {
 destinations.destinations.forEach(place => {
-  destinationInput.innerHTML += `<option>${place.destination}</option>`
-})
+  destinationDropDown.innerHTML += `<option value="${place.id}">${place.destination}</option>`
+})// add a value attribute assign the value to destinationID ##
   }
 
 const greetUser = () => {
@@ -127,46 +134,51 @@ const displayTrips = () => {
               </article>`
   })
 }
+//--------WIP GATHER EVENT LISTENER info------
 
-const fetchApiUrl = (path) => {
-  return fetch(`http://localhost:3001/api/v1/${path}`)
-    .then((response) => response.json())
-    .then(data => data)
-    .then((error) => console.log(`${path} error`, error))
-}
-function addNewTripData(newDataEntry) {
-  fetch("http://localhost:3001/api/v1/trips", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newDataEntry),
+function createUserTrip(event){
+  event.preventDefault()
+  currentTripEntry = {
+    id: Number(postID),//check into number() vs parseInt()
+    userID: Number(traveler.id),
+    destinationID: Number(destinationDropDown.value),
+    travelers: Number(numberOfTravelersInput.value),
+    date: dayjs(departureDateInput.value).format('YYYY/MM/DD'),
+    duration: Number(lengthOfTripInput.value),
+    status: "pending",
+    suggestedActivities: []
+  }
+ 
+  displaySpentThisYear()
+  // console.log("POSTING TRIP", currentTripEntry)
+  apiCalls.addNewTripData(currentTripEntry, "trips")
+  .then(data => updateData(data))
+  .then(() => {
+    postID++
+    clearForm()
   })
-    .then((res) => res.json())
-    .then((data) => data)
-    .then(() =>
-      fetchApiUrl("trips")
-        .then((trip) => (tripData = trip.trips))
-        .then(() => {
-          newTrips();
-          displayTrips();
-          displaySpentThisYear() 
-        })
-    )
-    .catch((err) => console.log("Error!", err));
+};
+
+function clearForm() {
+  destinationDropDown.value = ""
+  numberOfTravelersInput.value = ""
+  departureDateInput.value = ""
+  lengthOfTripInput.value = ""
+};
+
+const updateData = () => {
+  apiCalls.fetchAllData('trips')
+    newTrips()
+    displaySpentThisYear()
 }
 
-tripForm.addEventListener("submit", (e) => {
-  console.log(e)
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const newDataEntry = {
-    id: Number(`${trips.id}`),
-    userID: Number(`${trips.userID}`),
-    travelers: Number(formData.get("travelers")),
-    date: dayjs(formData.get("date")).format("YYYY/MM/DD"),
-    duration: Number(formData.get("duration")),
-    status: trips.status,
-    suggetedActivities:[]
-  };
-  addNewTripData(newDataEntry);
-  e.target.reset();
-});
+const getEstimatedCost = () => {
+  return destinations.reduce((sum, place) => {
+    if(place.id === currentTripEntry.destinationID){
+      sum += (place.estimatedLodgingCostPerDay * currentTripEntry.duration) + (place.estimatedFlightCostPerPerson * currentTripEntry.travelers)
+    }
+    return sum
+  }, 0)
+}
+
+estimateTripButton.addEventListener('click', createUserTrip);
