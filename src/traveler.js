@@ -1,4 +1,4 @@
-//"God CLas"
+//"God Class"
 const dayjs = require('dayjs')
 class Traveler {
     constructor(travelerData, trips){
@@ -40,6 +40,28 @@ totalYearlySpent(userTrips, destinations){
     const withBookingFee = sum * .10
     return withBookingFee + sum
 }
+
+
 }
+//duration and travelers
+// estimatedLodgingCostPerDay: 100,
+// estimatedFlightCostPerPerson: 780
+// totalYearlySpent(userTrips, destinations){
+//   // console.log(this.getTripItinerary("past"))
+//   // const pastTrips = this.getTripItinerary("past")
+//   const travelerTripsThisYear = pastTrips.filter(trip => dayjs(trip.date).isAfter([dayjs("2021/1/31").subtract(1, 'year')], 'year'));
+//   console.log(travelerTripsThisYear)
+//   let sum = 0
+//   travelerTripsThisYear.forEach(trip => {
+//      destinations.destinations.forEach(destination => {
+//       if(trip.destinationID === destination.id && trip.status === "approved"){
+//         sum += (destination.estimatedLodgingCostPerDay * trip.duration) + (destination.estimatedFlightCostPerPerson * trip.travelers)
+//       }
+//      })
+//     })
+//     const withBookingFee = sum * .10
+//     return withBookingFee + sum
+// }
+
 
 module.exports = Traveler
