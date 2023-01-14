@@ -8,5 +8,7 @@ class Destinations {
     })
     return theDestination
   }
+
+
 }
 module.exports = Destinations

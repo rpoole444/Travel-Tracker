@@ -19,33 +19,32 @@
     <header>
       <h1>Travel Tracker</h1>
       <div class="user-basic">
-        <h2 class="greeting">Hello Reid!</h2>
+        <h2 class="greeting"></h2>
         <p>Today's Date is Feb. 5th 2023</p>
       </div>
     </header>
     <main>
-      <form class="input-field">
+      <section class="input-field">
         <h2>Plan a Trip</h2>
-        <fieldset>
+        <form class="user-input">
           <label for="destination">Destination:</label>
-          <select name="destinations" id="destinations-dd">
+          <select name="destinations" id="destinationsDD">
             <option value="">destination</option>
-            <!-- innerText here -->
           </select>
           <label for="length">Length of trip:</label>
-          <input type="number" name="length" id="length">      
+          <input type="number" name="length" id="lengthInput">      
           <label for="travelers">Travelers</label>
-          <input type="number" name="travelers" id="travelers">
+          <input type="number" name="travelers" id="travelersInput">
           <label for="departure-date">Departure Date</label>
-          <input type="date" name="departure-date" id="departure-date">
-          <button class="submit-button"">SUBMIT</button>
-          <!-- the docs say this ^button should be and input as well -->
-        </fieldset>
+          <input type="date" name="departure-date" id="departureDate" class="departure-date">
+          <button class="submit-button">Estimate Trip Cost</button>
+        </form>
         <p>total cost of planned trip</p>
-        <section class="total-cost-display"></section>
+        <p class="total-cost-display"></p>
+        <button class="buy-button">Buy Trip</button>
         <p>*prices include 10% booking fee</p> 
         <p class="total-spent-ty">$---- spent this year</p>
-      </form>
+      </section>
       <section class="your-trips">
         <h2>Your Trips</h2>
         <h2>Upcoming Trips</h2>
