@@ -101,9 +101,7 @@ const greetUser = () => {
 };
 
 const displaySpentThisYear = (travelerTrips, destinationData) => {
-  //  destinations.getDestinationById(trip.destinationID)
   const amountSpent = traveler.totalYearlySpent(travelerTrips, destinationData);
-  console.log(amountSpent);
   yearlyCost.innerText = `$${amountSpent} spent this year so far`;
 };
 
@@ -193,7 +191,6 @@ const handleButtons = () => {
       buyButton.disabled = true;
       estimateTripButton.disabled = false;
       clearForm();
-      displaySpentThisYear(traveler.trips, destinationData);
 
       estimateTripButton.innerText = `Estimate Trip`;
     };
