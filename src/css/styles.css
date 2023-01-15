@@ -5,7 +5,7 @@
   font-size: 12px;
   margin: 0;
   padding: 0;
-  font-family: "Open Sans";
+  font-family: "Comic Sans";
 }
 
 body {
@@ -32,6 +32,11 @@ header {
   justify-content: space-between;
   width: 100vw;
   height: 12vh;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.drop-down {
+  width: 11vw;
 }
 
 h1 {
@@ -60,15 +65,25 @@ h2 {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 80vh;
+  height: 73vh;
   width: 23vw;
+  margin-top: 6vh;
   border: 3px solid #f78764;
   background-color: #f78764;
   border-radius: 12px;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.buy-button,
+.submit-button {
+  margin-top: 0.5vh;
+  border-radius: 8px;
+  height: 3.5vh;
+  width: 7.5vw;
 }
 
 .title {
-  font-size: 3vh;
+  font-size: 2.5vh;
 }
 
 .title2 {
@@ -77,10 +92,12 @@ h2 {
 .user-input {
   display: flex;
   flex-direction: column;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
   align-items: center;
   justify-content: space-evenly;
-  height: 40vh;
-  width: 23vw;
+  height: 35vh;
+  width: 17vw;
+  border-radius: 12px;
 }
 
 /* posted section/right side */
@@ -105,12 +122,16 @@ h2 {
   border: 6px solid #f78764;
   background-color: #f78764;
   border-radius: 12px;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
+  overflow-y: scroll;
+  scrollbar-color: #f78764;
 }
 
 .location-img {
   border-radius: 12px;
   height: 11vh;
   width: 17vw;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
   /* border: 2px solid brown; */
 }
 .location-card {
@@ -118,11 +139,12 @@ h2 {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  height: 20vh;
+  width: 17vw;
   border: 6px solid #634133;
   background-color: #634133;
   border-radius: 12px;
-  height: 20vh;
-  width: 17vw;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .location,
