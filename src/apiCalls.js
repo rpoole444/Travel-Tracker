@@ -19,9 +19,21 @@ const addNewTripData = (newDataEntry) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newDataEntry),
   })
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err) => console.log("Error!", err));
+  //   .then((res) => {
+  //     if(!res.ok){
+  //       throw new Error(`${res.status} - ${res.statusText}`)
+  //     }
+  //     fetchAllData().then(data => {
+  //       updateData(data)
+  //     })
+  // // 
+  //   })
+    
+    // .catch((err) => {
+    //   //update error message on DOM!
+    //   //if it's too challenging here, do the catch in th scripts at the invocation of this function
+    //   err.message
+    // });
 
       }
 
