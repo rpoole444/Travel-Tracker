@@ -31,11 +31,8 @@ class Traveler {
   totalYearlySpent(userTrips, destinations) {
     let sum = 0;
     userTrips.forEach((trip) => {
-      destinations.destinations.forEach((destination) => {
-        if (
-          trip.destinationID === destination.id &&
-          trip.status === "approved"
-        ) {
+      destinations.forEach((destination) => {
+        if (trip.destinationID === destination.id) {
           sum +=
             destination.estimatedLodgingCostPerDay * trip.duration +
             destination.estimatedFlightCostPerPerson * trip.travelers;
