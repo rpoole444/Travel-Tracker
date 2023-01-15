@@ -101,7 +101,7 @@ const newDestinations = () => (destinations = new Destinations(destinationData))
 const populateTripChoice = () => {
 destinations.destinations.forEach(place => {
   destinationDropDown.innerHTML += `<option value="${place.id}">${place.destination}</option>`
-})// add a value attribute assign the value to destinationID ##
+})
   }
 
 const greetUser = () => {
@@ -201,32 +201,7 @@ function createUserTrip(event){
 
   console.log(currentTripEntry)
   addNewTripData1(currentTripEntry)
- 
-  // console.log("POSTING TRIP", currentTripEntry)
-//   .then((res) => {
-//     console.log(res)
-//       if(!res.ok){
-//         throw new Error(`${res.status} - ${res.statusText}`)
-//       }
-//       apiCalls.fetchAllData().then(data => {
-//         travelerData = data[0].travelers
-//         tripData = data[1].trips
-//         destinationData = data[2].destinations
-//         postID = data[1].trips.length + 1
-//         updateDataModel(data)
-//         renderPage()
-//         postID++
-//         clearForm()
-//       })
-//     })
-//   .catch((err) => {
-//       //update error message on DOM!
-//      //querySelect and innerText. the err.message
-//      errorMessage.innerText = err.message
-//     });
 };
-
-
 
 function clearForm() {
   destinationDropDown.value = ""
