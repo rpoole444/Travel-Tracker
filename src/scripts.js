@@ -58,7 +58,7 @@ const updateDataModel = () => {
 const renderPage = (trips, destinations) => {
   greetUser();
   populateTripChoice();
-  console.log(displaySpentThisYear(trips, destinations));
+  displaySpentThisYear(trips, destinations);
   displayTrips();
   handleButtons();
 };
@@ -70,7 +70,7 @@ const loadPageFunctions = () => {
   //1. hideLoginPage()
   //2.  getUserByLoginID
   updateDataModel();
-  renderPage();
+  renderPage(traveler.trips, destinationData);
 };
 
 // const getRandomIndex = (array) => {
@@ -82,7 +82,7 @@ const loadPageFunctions = () => {
 // }
 
 const newTravelerInstances = () => {
-  traveler = new Traveler(travelerData[12], tripData); //travelerData[0] - replaced with the user who logs in .find
+  traveler = new Traveler(travelerData[4], tripData); //travelerData[0] - replaced with the user who logs in .find
 };
 
 const newTrips = () => (trips = new Trip(tripData));
@@ -100,9 +100,10 @@ const greetUser = () => {
   greeting.innerHTML = `Hi, ${traveler.findFirstName()}!`;
 };
 
-const displaySpentThisYear = () => {
+const displaySpentThisYear = (travelerTrips, destinationData) => {
   //  destinations.getDestinationById(trip.destinationID)
-  const amountSpent = traveler.totalYearlySpent(traveler.trips, destinations);
+  const amountSpent = traveler.totalYearlySpent(travelerTrips, destinationData);
+  console.log(amountSpent);
   yearlyCost.innerText = `$${amountSpent} spent this year so far`;
 };
 
@@ -192,21 +193,13 @@ const handleButtons = () => {
       buyButton.disabled = true;
       estimateTripButton.disabled = false;
       clearForm();
+      displaySpentThisYear(traveler.trips, destinationData);
+
       estimateTripButton.innerText = `Estimate Trip`;
     };
   };
 };
 
-// const getEstimatedCost = () => {
-//   return destinations.reduce((sum, place) => {
-//     if (place.id === currentTripEntry.destinationID) {
-//       sum +=
-//         place.estimatedLodgingCostPerDay * currentTripEntry.duration +
-//         place.estimatedFlightCostPerPerson * currentTripEntry.travelers;
-//     }
-//     return sum;
-//   }, 0);
-// };
 //--------WIP GATHER EVENT LISTENER info------
 
 function addNewTripData1(newDataEntry) {
@@ -227,7 +220,7 @@ function addNewTripData1(newDataEntry) {
           destinationData = data[2].destinations;
           postID = data[1].trips.length + 1;
           updateDataModel(data);
-          renderPage(tripData, destinationData);
+          renderPage(traveler.trips, destinationData);
           postID++;
           clearForm();
         });
