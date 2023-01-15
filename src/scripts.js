@@ -23,6 +23,7 @@ const lengthOfTripInput = document.querySelector('#lengthInput');
 const numberOfTravelersInput = document.querySelector('#travelersInput');
 const departureDateInput = document.querySelector('#departureDate')
 const estimateTripButton = document.querySelector('.submit-button');
+const errorMessage = document.querySelector(".error-message")
 
 
 const submitButton = document.querySelector(".sumbit-button")
@@ -51,6 +52,19 @@ apiCalls.fetchAllData().then(data => {
   loadPageFunctions()
 });
 
+const updateDataModel = () => {
+  newTravelerInstances()
+  newTrips()
+  newDestinations()
+}
+
+const renderPage = () => {
+  greetUser()
+  populateTripChoice()
+  displaySpentThisYear() 
+  displayTrips()
+}
+
 const loadPageFunctions = () => {
   //show login page
   //check password and login status
@@ -68,16 +82,16 @@ const loadPageFunctions = () => {
   
 }
 
-const getRandomIndex = (array) => {
-  return Math.floor(Math.random() * array.length);
-}
+// const getRandomIndex = (array) => {
+//   return Math.floor(Math.random() * array.length);
+// }
 
-const getRandomUser = () => {
-  return travelerData[getRandomIndex(travelerData)];
-}
+// const getRandomUser = () => {
+//   return travelerData[getRandomIndex(travelerData)];
+// }
 
 const newTravelerInstances = () => {
-  traveler = new Traveler(getRandomUser(), tripData)//travelerData[0] - replaced with the user who logs in .find
+  traveler = new Traveler(travelerData[12], tripData)//travelerData[0] - replaced with the user who logs in .find
 }
 
 const newTrips = () => (trips = new Trip(tripData))
@@ -102,8 +116,12 @@ const displaySpentThisYear = () =>{
 
 // getUserByLogin()
 const displayTrips = () => {
+  
   const userUpcomingTrips = traveler.getTripItinerary("upcoming")
   const userPastTrips = traveler.getTripItinerary("past")
+
+  upcomingTrips.innerHTML = ""
+  pastTrips.innerHTML = ""
   userUpcomingTrips.forEach(trip => {
     const userDestination = destinations.getDestinationById(trip.destinationID)
 
@@ -136,8 +154,40 @@ const displayTrips = () => {
 }
 //--------WIP GATHER EVENT LISTENER info------
 
+function addNewTripData1(newDataEntry) {
+  console.log("NDE:", newDataEntry)
+    return fetch("http://localhost:3001/api/v1/trips", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newDataEntry),
+  })
+  .then((res) => {
+    console.log(res)
+      if(!res.ok){
+        throw new Error(`${res.status} - ${res.statusText}`)
+      } else {
+      apiCalls.fetchAllData().then(data => {
+        travelerData = data[0].travelers
+        tripData = data[1].trips
+        destinationData = data[2].destinations
+        postID = data[1].trips.length + 1
+        updateDataModel(data)
+        renderPage()
+        postID++
+        clearForm()
+      })
+    }
+    })
+  .catch((err) => {
+      //update error message on DOM!
+     //querySelect and innerText. the err.message
+     errorMessage.innerText = err.message
+    });
+  }
+
 function createUserTrip(event){
   event.preventDefault()
+  errorMessage.innerText = ""
   currentTripEntry = {
     id: Number(postID),//check into number() vs parseInt()
     userID: Number(traveler.id),
@@ -148,16 +198,35 @@ function createUserTrip(event){
     status: "pending",
     suggestedActivities: []
   }
+
+  console.log(currentTripEntry)
+  addNewTripData1(currentTripEntry)
  
-  displaySpentThisYear()
   // console.log("POSTING TRIP", currentTripEntry)
-  apiCalls.addNewTripData(currentTripEntry, "trips")
-  .then(data => updateData(data))
-  .then(() => {
-    postID++
-    clearForm()
-  })
+//   .then((res) => {
+//     console.log(res)
+//       if(!res.ok){
+//         throw new Error(`${res.status} - ${res.statusText}`)
+//       }
+//       apiCalls.fetchAllData().then(data => {
+//         travelerData = data[0].travelers
+//         tripData = data[1].trips
+//         destinationData = data[2].destinations
+//         postID = data[1].trips.length + 1
+//         updateDataModel(data)
+//         renderPage()
+//         postID++
+//         clearForm()
+//       })
+//     })
+//   .catch((err) => {
+//       //update error message on DOM!
+//      //querySelect and innerText. the err.message
+//      errorMessage.innerText = err.message
+//     });
 };
+
+
 
 function clearForm() {
   destinationDropDown.value = ""
@@ -167,9 +236,9 @@ function clearForm() {
 };
 
 const updateData = () => {
-  apiCalls.fetchAllData('trips')
-    newTrips()
-    displaySpentThisYear()
+  apiCalls.fetchAllData()
+    // newTrips()
+    // displaySpentThisYear()
 }
 
 const getEstimatedCost = () => {
