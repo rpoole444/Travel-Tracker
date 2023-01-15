@@ -25,7 +25,8 @@ const departureDateInput = document.querySelector("#departureDate");
 const estimateTripButton = document.querySelector(".submit-button");
 const errorMessage = document.querySelector(".error-message");
 
-const submitButton = document.querySelector(".sumbit-button");
+const buyButton = document.querySelector(".buy-button");
+const totalCostDisplay = document.querySelector(".total-cost-display");
 const loginButton = document.querySelector("loginbutton");
 
 // event listener loginbutton click handleLogin
@@ -54,11 +55,12 @@ const updateDataModel = () => {
   newDestinations();
 };
 
-const renderPage = () => {
+const renderPage = (trips, destinations) => {
   greetUser();
   populateTripChoice();
-  displaySpentThisYear();
+  console.log(displaySpentThisYear(trips, destinations));
   displayTrips();
+  handleButtons();
 };
 
 const loadPageFunctions = () => {
@@ -66,15 +68,9 @@ const loadPageFunctions = () => {
   //check password and login status
   // if wrong info send errors for wrong username and password
   //1. hideLoginPage()
-  //2. GetRandomUser() or getUserByLoginID
-  // getRandomUser()
-  newTravelerInstances();
-  newTrips();
-  newDestinations();
-  greetUser();
-  displayTrips();
-  displaySpentThisYear();
-  populateTripChoice();
+  //2.  getUserByLoginID
+  updateDataModel();
+  renderPage();
 };
 
 // const getRandomIndex = (array) => {
@@ -145,10 +141,76 @@ const displayTrips = () => {
       </article>`;
   });
 };
+
+function clearForm() {
+  destinationDropDown.value = "";
+  numberOfTravelersInput.value = "";
+  departureDateInput.value = "";
+  lengthOfTripInput.value = "";
+}
+
+const handleButtons = () => {
+  buyButton.disabled = true;
+  estimateTripButton.onclick = function () {
+    totalCostDisplay.innerText = ``;
+    if (
+      destinationDropDown.value &&
+      numberOfTravelersInput.value &&
+      departureDateInput.value &&
+      lengthOfTripInput.value &&
+      estimateTripButton.innerText === "Estimate Trip"
+    ) {
+      buyButton.disabled = false;
+      estimateTripButton.innerText = `Back`;
+      totalCostDisplay.innerText = `$${traveler.getEstimatedCost(
+        traveler.trips,
+        destinationData,
+        currentTripEntry
+      )}`;
+    } else if (
+      !numberOfTravelersInput.value &&
+      !departureDateInput.value &&
+      !lengthOfTripInput.value &&
+      estimateTripButton.innerText === "Estimate Trip"
+    ) {
+      buyButton.disabled = true;
+      totalCostDisplay.innerText = `Please Fill Out Form for Estimate`;
+      estimateTripButton.innerText === "Back";
+    } else if (
+      destinationDropDown.value &&
+      numberOfTravelersInput.value &&
+      departureDateInput.value &&
+      lengthOfTripInput.value &&
+      estimateTripButton.innerText === "Back"
+    ) {
+      clearForm();
+      estimateTripButton.innerText = "Estimate Trip";
+      buyButton.disabled = true;
+    }
+    buyButton.onclick = function () {
+      totalCostDisplay.innerText = "";
+      buyButton.disabled = true;
+      estimateTripButton.disabled = false;
+      clearForm();
+      estimateTripButton.innerText = `Estimate Trip`;
+    };
+  };
+};
+
+// const getEstimatedCost = () => {
+//   return destinations.reduce((sum, place) => {
+//     if (place.id === currentTripEntry.destinationID) {
+//       sum +=
+//         place.estimatedLodgingCostPerDay * currentTripEntry.duration +
+//         place.estimatedFlightCostPerPerson * currentTripEntry.travelers;
+//     }
+//     return sum;
+//   }, 0);
+// };
 //--------WIP GATHER EVENT LISTENER info------
 
 function addNewTripData1(newDataEntry) {
-  console.log("NDE:", newDataEntry);
+  console.log("POST DATA:", newDataEntry);
   return fetch("http://localhost:3001/api/v1/trips", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -165,7 +227,7 @@ function addNewTripData1(newDataEntry) {
           destinationData = data[2].destinations;
           postID = data[1].trips.length + 1;
           updateDataModel(data);
-          renderPage();
+          renderPage(tripData, destinationData);
           postID++;
           clearForm();
         });
@@ -191,33 +253,11 @@ function createUserTrip(event) {
     status: "pending",
     suggestedActivities: [],
   };
+}
 
-  console.log(currentTripEntry);
+const postNewTrip = () => {
   addNewTripData1(currentTripEntry);
-}
-
-function clearForm() {
-  destinationDropDown.value = "";
-  numberOfTravelersInput.value = "";
-  departureDateInput.value = "";
-  lengthOfTripInput.value = "";
-}
-
-const updateData = () => {
-  apiCalls.fetchAllData();
-  // newTrips()
-  // displaySpentThisYear()
-};
-
-const getEstimatedCost = () => {
-  return destinations.reduce((sum, place) => {
-    if (place.id === currentTripEntry.destinationID) {
-      sum +=
-        place.estimatedLodgingCostPerDay * currentTripEntry.duration +
-        place.estimatedFlightCostPerPerson * currentTripEntry.travelers;
-    }
-    return sum;
-  }, 0);
 };
 
 estimateTripButton.addEventListener("click", createUserTrip);
+buyButton.addEventListener("click", postNewTrip);
