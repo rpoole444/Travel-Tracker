@@ -14,10 +14,10 @@ class Traveler {
   getTripItinerary(time) {
     const filteredTrip = this.trips.filter((trip) => {
       if (time === "past") {
-        return dayjs(trip.date).isBefore("2021/1/31");
+        return dayjs(trip.date).isBefore("2022/12/31");
       }
       if (time === "upcoming") {
-        return dayjs(trip.date).isAfter("2021/1/31");
+        return dayjs(trip.date).isAfter("2022/12/31");
       }
     });
     return filteredTrip;
@@ -29,18 +29,26 @@ class Traveler {
   }
 
   totalYearlySpent(userTrips, destinations) {
-    let sum = 0;
-    userTrips.forEach((trip) => {
-      destinations.forEach((destination) => {
-        if (trip.destinationID === destination.id) {
+    console.log(userTrips);
+    const tripsThisYear = userTrips.filter(
+      (trip) =>
+        dayjs(trip.date).isBefore(dayjs().endOf("year")) &&
+        dayjs(trip.date).isAfter(dayjs().startOf("year"))
+    );
+
+    const costInAYear = tripsThisYear.reduce((sum, trip) => {
+      destinations.forEach((place) => {
+        if (place.id === trip.destinationID) {
           sum +=
-            destination.estimatedLodgingCostPerDay * trip.duration +
-            destination.estimatedFlightCostPerPerson * trip.travelers;
+            place.estimatedLodgingCostPerDay * trip.duration +
+            place.estimatedFlightCostPerPerson * trip.travelers;
         }
       });
-    });
-    const withBookingFee = sum * 0.1;
-    return withBookingFee + sum;
+      return sum;
+    }, 0);
+    const withBookingFee = costInAYear * 0.1;
+    const Total = withBookingFee + costInAYear;
+    return Total.toFixed(2);
   }
 
   getEstimatedCost(userTrips, destinations, currentTripEntry) {
@@ -54,24 +62,5 @@ class Traveler {
     }, 0);
   }
 }
-//duration and travelers
-// estimatedLodgingCostPerDay: 100,
-// estimatedFlightCostPerPerson: 780
-// totalYearlySpent(userTrips, destinations){
-//   // console.log(this.getTripItinerary("past"))
-//   // const pastTrips = this.getTripItinerary("past")
-//   const travelerTripsThisYear = pastTrips.filter(trip => dayjs(trip.date).isAfter([dayjs("2021/1/31").subtract(1, 'year')], 'year'));
-//   console.log(travelerTripsThisYear)
-//   let sum = 0
-//   travelerTripsThisYear.forEach(trip => {
-//      destinations.destinations.forEach(destination => {
-//       if(trip.destinationID === destination.id && trip.status === "approved"){
-//         sum += (destination.estimatedLodgingCostPerDay * trip.duration) + (destination.estimatedFlightCostPerPerson * trip.travelers)
-//       }
-//      })
-//     })
-//     const withBookingFee = sum * .10
-//     return withBookingFee + sum
-// }
 
 module.exports = Traveler;

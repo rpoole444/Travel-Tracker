@@ -123,6 +123,8 @@ h2 {
   background-color: #f78764;
   border-radius: 12px;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
+  overflow-y: scroll;
+  scrollbar-color: #f78764;
 }
 
 .location-img {
