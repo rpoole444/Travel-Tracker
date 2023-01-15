@@ -117,12 +117,14 @@ const displayTrips = () => {
 
     upcomingTrips.innerHTML += `
     <article class="location-card">
-        <img src="${userDestination.image}"class="location-img">
+        <img src="${userDestination.image}" alt="${
+      userDestination.alt
+    }" class="location-img">
           <div>
             <p class="location">${userDestination.destination}</p>
             <p class="date">${dayjs(trip.date).format("MM/DD/YY")}</p>
             <p class="travel-num">${trip.travelers} travelers</p>
-            <p class="status">${trip.status}!!</p>
+            <p class="status">${trip.status}...</p>
           </div>
     </article>`;
   });
@@ -130,12 +132,14 @@ const displayTrips = () => {
     const userDestination = destinations.getDestinationById(trip.destinationID);
     pastTrips.innerHTML += `
       <article class="location-card">
-          <img src="${userDestination.image}"class="location-img">
+          <img src="${userDestination.image}" alt="${
+      userDestination.alt
+    }" class="location-img">
             <div>
               <p class="location">${userDestination.destination}</p>
               <p class="date">${dayjs(trip.date).format("MM/DD/YY")}</p>
               <p class="travel-num">${trip.travelers} travelers</p>
-              <p class="status>${trip.status}!!</p>
+              <p class="status">${trip.status}!</p>
             </div>
       </article>`;
   });
