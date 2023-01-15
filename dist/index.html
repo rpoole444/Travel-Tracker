@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link  href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="src/css/styles.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="src/css/styles.css" />
     <!-- <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.core.min.css"> -->
     <title>Travel Tracker</title>
   </head>
@@ -20,34 +23,39 @@
       <h1>Travel Tracker</h1>
       <div class="user-basic">
         <h2 class="greeting"></h2>
-        <p>Today's Date is Feb. 5th 2023</p>
+        <p class="today">Today's Date is Feb. 5th 2023</p>
       </div>
     </header>
     <main>
       <section class="input-field">
         <h2>Plan a Trip</h2>
         <form class="user-input">
-          <label for="destination">Destination:</label>
+          <label class="title" for="destination">Destination:</label>
           <select name="destinations" id="destinationsDD">
             <option value="">destination</option>
           </select>
-          <label for="length">Length of trip:</label>
-          <input type="number" name="length" id="lengthInput">      
-          <label for="travelers">Travelers</label>
-          <input type="number" name="travelers" id="travelersInput">
-          <label for="departure-date">Departure Date</label>
-          <input type="date" name="departure-date" id="departureDate" class="departure-date">
+          <label class="title" for="length">Length of trip:</label>
+          <input type="number" name="length" id="lengthInput" min="0" />
+          <label class="title" for="travelers">Travelers</label>
+          <input type="number" name="travelers" id="travelersInput" min="0" />
+          <label class="title" for="departure-date">Departure Date</label>
+          <input
+            type="date"
+            name="departure-date"
+            id="departureDate"
+            class="departure-date"
+            min="2022-12-31"
+          />
           <button class="submit-button">Estimate Trip Cost</button>
           <p class="error-message"></p>
         </form>
-        <p>total cost of planned trip</p>
+        <p class="title2">total cost of planned trip</p>
         <p class="total-cost-display"></p>
         <button class="buy-button">Buy Trip</button>
-        <p>*prices include 10% booking fee</p> 
+        <p class="title2">*prices include 10% booking fee</p>
         <p class="total-spent-ty">$---- spent this year</p>
       </section>
       <section class="your-trips">
-        <h2>Your Trips</h2>
         <h2>Upcoming Trips</h2>
         <section class="upcoming-trips"></section>
         <!-- <h2>Present Trips</h2> -->
