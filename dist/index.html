@@ -32,11 +32,11 @@
             <option value="">destination</option>
           </select>
           <label for="length">Length of trip:</label>
-          <input type="number" name="length" id="lengthInput">      
+          <input type="number" name="length" id="lengthInput" min="0">      
           <label for="travelers">Travelers</label>
-          <input type="number" name="travelers" id="travelersInput">
+          <input type="number" name="travelers" id="travelersInput" min="0">
           <label for="departure-date">Departure Date</label>
-          <input type="date" name="departure-date" id="departureDate" class="departure-date">
+          <input type="date" name="departure-date" id="departureDate" class="departure-date" min="2022-12-31">
           <button class="submit-button">Estimate Trip Cost</button>
           <p class="error-message"></p>
         </form>
