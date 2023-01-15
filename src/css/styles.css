@@ -53,6 +53,7 @@ h2 {
 .user-basic {
   padding: 3vh 3vw 0 0;
 }
+
 /* input fields/left-side */
 .input-field {
   display: flex;
@@ -63,6 +64,7 @@ h2 {
   width: 23vw;
   border: 3px solid #f78764;
   background-color: #f78764;
+  border-radius: 12px;
 }
 
 .title {
@@ -102,10 +104,12 @@ h2 {
   width: 65vw;
   border: 6px solid #f78764;
   background-color: #f78764;
+  border-radius: 12px;
 }
 
 .location-img {
-  height: 10vh;
+  border-radius: 12px;
+  height: 11vh;
   width: 17vw;
   /* border: 2px solid brown; */
 }
@@ -116,6 +120,7 @@ h2 {
   align-items: center;
   border: 6px solid #634133;
   background-color: #634133;
+  border-radius: 12px;
   height: 20vh;
   width: 17vw;
 }
