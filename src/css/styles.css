@@ -13,6 +13,7 @@ body {
   flex-direction: column;
   height: 95vh;
   width: 100vw;
+  background-color: #634133;
 }
 
 main {
@@ -20,7 +21,8 @@ main {
   flex-direction: row;
   justify-content: space-around;
   width: 100vw;
-  height: 85vh; 
+  height: 85vh;
+  background-color: #b86f52;
 }
 
 /* header */
@@ -29,14 +31,27 @@ header {
   display: flex;
   justify-content: space-between;
   width: 100vw;
-  height:15vh;
+  height: 12vh;
 }
 
 h1 {
+  color: #f78764;
+  font-size: 6vh;
   padding: 3vh 0 0 3vw;
 }
+.greeting,
+.today {
+  color: #f78764;
+}
+.today {
+  font-size: 2vh;
+}
+h2 {
+  font-size: 5vh;
+}
+
 .user-basic {
-  padding: 3vh 3vw 0  0;
+  padding: 3vh 3vw 0 0;
 }
 /* input fields/left-side */
 .input-field {
@@ -46,13 +61,17 @@ h1 {
   align-items: center;
   height: 80vh;
   width: 23vw;
-  border: 2px solid red;
+  border: 3px solid #f78764;
+  background-color: #f78764;
 }
 
-select {
-
+.title {
+  font-size: 3vh;
 }
 
+.title2 {
+  font-size: 2vh;
+}
 .user-input {
   display: flex;
   flex-direction: column;
@@ -62,11 +81,6 @@ select {
   width: 23vw;
 }
 
-.single-trip-costa {
-  width: 15vw;
-  height: 10vh;
-  border: 2px solid green;
-}
 /* posted section/right side */
 
 .your-trips {
@@ -76,7 +90,7 @@ select {
   align-items: center;
   height: 80vh;
   width: 65vw;
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
 }
 
 .upcoming-trips,
@@ -84,29 +98,40 @@ select {
 .past-trips {
   align-items: center;
   justify-content: space-around;
-  height:40vh ;
-  width:65vw ;
-  border: 2px solid purple;
+  height: 55vh;
+  width: 65vw;
+  border: 6px solid #f78764;
+  background-color: #f78764;
 }
-
 
 .location-img {
-  height: 8vh;
-  width: 9vw;
-  border: 2px solid brown;
+  height: 10vh;
+  width: 17vw;
+  /* border: 2px solid brown; */
 }
-.location-card{
+.location-card {
   display: flex;
   flex-direction: column;
-  border: 2px solid black;
-  height: 15vh;
-  width:17vw;
+  justify-content: flex-start;
+  align-items: center;
+  border: 6px solid #634133;
+  background-color: #634133;
+  height: 20vh;
+  width: 17vw;
+}
+
+.location,
+.date,
+.travel-num,
+.status {
+  font-size: 2vh;
+  color: #f78764;
 }
 
 .upcoming-trips,
 .past-trips {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 /* .login {
