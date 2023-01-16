@@ -183,7 +183,7 @@ const displayTrips = () => {
           <img src="${userDestination.image}" alt="${
       userDestination.alt
     }" class="location-img">
-            <div>
+            <div class="card-info">
               <p class="location">${userDestination.destination}</p>
               <p class="date">${dayjs(trip.date).format("MM/DD/YY")}</p>
               <p class="travel-num">${trip.travelers} travelers</p>
