@@ -175,21 +175,24 @@ h2 {
   background-image: url(/Users/reidpoole/turing_work/2mod/travelTrackerAll/travelTracker/dist/loginwindowpic.jpg);
 }
 
+.logout-button,
 .login-submit {
-  height: 3vh;
-  width: 5vw;
+  height: 4vh;
+  width: 6vw;
+  border-radius: 8px;
 }
 
 .login-input {
   height: 3vh;
-  width: 9vw;
+  width: 12vw;
+  border-radius: 8px;
 }
 .container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 25vh;
+  height: 28vh;
   width: 40vh;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
   border-radius: 12px;
