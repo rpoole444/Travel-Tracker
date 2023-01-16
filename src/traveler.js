@@ -29,7 +29,6 @@ class Traveler {
   }
 
   totalYearlySpent(userTrips, destinations) {
-    console.log(userTrips);
     const tripsThisYear = userTrips.filter(
       (trip) =>
         dayjs(trip.date).isBefore(dayjs().endOf("year")) &&
