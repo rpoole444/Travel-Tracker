@@ -12,7 +12,7 @@ class Traveler {
   }
 
   getTripItinerary(time) {
-    const filteredTrip = this.trips.filter((trip) => {
+    return this.trips.filter((trip) => {
       if (time === "past") {
         return dayjs(trip.date).isBefore("2022/12/31");
       }
@@ -20,12 +20,10 @@ class Traveler {
         return dayjs(trip.date).isAfter("2022/12/31");
       }
     });
-    return filteredTrip;
   }
 
   checkPendingStatus() {
-    const pendingTrips = this.trips.filter((trip) => trip.status === "pending");
-    return pendingTrips;
+    return this.trips.filter((trip) => trip.status === "pending");
   }
 
   totalYearlySpent(userTrips, destinations) {
@@ -47,6 +45,7 @@ class Traveler {
     }, 0);
     const withBookingFee = costInAYear * 0.1;
     const Total = withBookingFee + costInAYear;
+
     return Total.toFixed(2);
   }
 

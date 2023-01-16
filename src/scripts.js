@@ -145,6 +145,8 @@ const displaySpentThisYear = (travelerTrips, destinationData) => {
   yearlyCost.innerText = `$${amountSpent} spent this year so far`;
 };
 
+// -----------DOM Related Functions -----------------------
+
 const displayTrips = () => {
   const userUpcomingTrips = traveler.getTripItinerary("upcoming");
   const userPastTrips = traveler.getTripItinerary("past");

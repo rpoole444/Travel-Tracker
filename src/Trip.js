@@ -4,8 +4,7 @@ class Trip {
   }
 
   getTripsByID(id) {
-    const tripsByID = this.trips.filter((trip) => trip.userID === id);
-    return tripsByID;
+    return this.trips.filter((trip) => trip.userID === id);
   }
 }
 module.exports = Trip;
