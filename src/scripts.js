@@ -9,23 +9,24 @@ const greeting = document.querySelector(".greeting");
 const upcomingTrips = document.querySelector(".upcoming-trips");
 const pastTrips = document.querySelector(".past-trips");
 const yearlyCost = document.querySelector(".total-spent-ty");
-const loginPage = document.querySelector(".login");
 const header = document.querySelector(".header");
 const main = document.querySelector(".main");
+
+const logoutButton = document.querySelector(".logout-button");
 const destinationDropDown = document.querySelector("#destinationsDD");
 const lengthOfTripInput = document.querySelector("#lengthInput");
 const numberOfTravelersInput = document.querySelector("#travelersInput");
 const departureDateInput = document.querySelector("#departureDate");
 const estimateTripButton = document.querySelector(".submit-button");
 const errorMessage = document.querySelector(".error-message");
-
 const buyButton = document.querySelector(".buy-button");
 const totalCostDisplay = document.querySelector(".total-cost-display");
 
+const loginPage = document.querySelector(".login");
 const emailInput = document.querySelector("#emailInput");
 const passwordInput = document.querySelector("#passwordInput");
 const loginButton = document.querySelector(".login-submit");
-const loginError = document.querySelector(".loginError");
+const loginError = document.querySelector(".login-error");
 
 // event listener loginbutton click handleLogin
 // if emailInput.value && pasweedInput.value
@@ -66,16 +67,8 @@ const renderPage = (trips, destinations) => {
 
 const loadPageFunctions = () => {
   handleLoginButton();
-  // updateDataModel(traveler);
-  // renderPage(traveler.trips, destinationData);
   validateLogin();
 };
-// getUserByLogin();
-// function validateLogin(e, username, password) {
-//   if (password.value) {
-//   }
-//   // validateEmail()
-// }
 
 function validateLogin() {
   console.log(emailInput.value);
@@ -90,37 +83,46 @@ function validateLogin() {
       passwordInput.value === "travel"
     ) {
       traveler = travelerData.find((traveler) => traveler.id === ID);
-      // travelerTrips = tripData
-      console.log(tripData);
-      console.log(traveler);
-      // fetchTravelData();
       updateDataModel(traveler, tripData);
       renderPage(traveler.trips, destinationData);
       loginPage.classList.add("hidden");
       header.classList.remove("hidden");
       main.classList.remove("hidden");
     } else if (
-      ID ||
-      (!ID &&
-        !emailInput.value === `traveler${ID}` &&
-        !passwordInput.value === "travel")
+      !ID &&
+      emailInput.value !== `traveler${ID}` &&
+      passwordInput.value !== "travel"
     ) {
       loginError.innerText = "Sorry Wrong Information, Please Try Again";
     }
   };
 }
 
+function backToLogin() {
+  emailInput.value = "";
+  passwordInput.value = "";
+  loginError.innerText = "";
+  loginPage.classList.remove("hidden");
+  header.classList.add("hidden");
+  main.classList.add("hidden");
+}
+
 function handleLoginButton() {
   if (!emailInput.value && !passwordInput.value) {
     loginButton.onclick = function () {
-      if (!emailInput.value && !passwordInput.value) {
-        loginButton.disabled = true;
-      }
-      if (emailInput.value && passwordInput.value) {
-        loginButton.disabled = false;
-      }
+      loginError.innerText = "please try again!";
+      loginButton.disabled = true;
+      setTimeout(function () {
+        clearLoginError();
+      }, 3000);
     };
   }
+}
+function clearLoginError() {
+  emailInput.value = "";
+  passwordInput.value = "";
+  loginError.innerText = "";
+  loginButton.disabled = false;
 }
 
 const newTravelerInstances = (travelerInfo, trips) => {
@@ -311,3 +313,4 @@ const postNewTrip = () => {
 estimateTripButton.addEventListener("click", createUserTrip);
 buyButton.addEventListener("click", postNewTrip);
 loginButton.addEventListener("click", validateLogin);
+logoutButton.addEventListener("click", backToLogin);
