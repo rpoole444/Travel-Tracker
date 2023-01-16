@@ -9,7 +9,9 @@ const greeting = document.querySelector(".greeting");
 const upcomingTrips = document.querySelector(".upcoming-trips");
 const pastTrips = document.querySelector(".past-trips");
 const yearlyCost = document.querySelector(".total-spent-ty");
-// const tripForm = document.querySelector(".input-field");
+const loginPage = document.querySelector(".login");
+const header = document.querySelector(".header");
+const main = document.querySelector(".main");
 const destinationDropDown = document.querySelector("#destinationsDD");
 const lengthOfTripInput = document.querySelector("#lengthInput");
 const numberOfTravelersInput = document.querySelector("#travelersInput");
@@ -19,7 +21,11 @@ const errorMessage = document.querySelector(".error-message");
 
 const buyButton = document.querySelector(".buy-button");
 const totalCostDisplay = document.querySelector(".total-cost-display");
-const loginButton = document.querySelector("loginbutton");
+
+const emailInput = document.querySelector("#emailInput");
+const passwordInput = document.querySelector("#passwordInput");
+const loginButton = document.querySelector(".login-submit");
+const loginError = document.querySelector(".loginError");
 
 // event listener loginbutton click handleLogin
 // if emailInput.value && pasweedInput.value
@@ -32,7 +38,7 @@ let destinations;
 let destinationData;
 let postID;
 let currentTripEntry;
-
+// const fetchTravelData = () => {
 apiCalls.fetchAllData().then((data) => {
   travelerData = data[0].travelers;
   tripData = data[1].trips;
@@ -40,9 +46,12 @@ apiCalls.fetchAllData().then((data) => {
   postID = data[1].trips.length + 1;
   loadPageFunctions();
 });
+// };
 
-const updateDataModel = () => {
-  newTravelerInstances();
+const updateDataModel = (traveler, trips) => {
+  console.log("DM User:", traveler);
+  console.log("DM trips: ", trips);
+  newTravelerInstances(traveler, trips);
   newTrips();
   newDestinations();
 };
@@ -56,25 +65,66 @@ const renderPage = (trips, destinations) => {
 };
 
 const loadPageFunctions = () => {
-  //show login page
-  //check password and login status
-  // if wrong info send errors for wrong username and password
-  //1. hideLoginPage()
-  //2.  getUserByLoginID
-  updateDataModel();
-  renderPage(traveler.trips, destinationData);
+  handleLoginButton();
+  // updateDataModel(traveler);
+  // renderPage(traveler.trips, destinationData);
+  validateLogin();
 };
-
-// const getRandomIndex = (array) => {
-//   return Math.floor(Math.random() * array.length);
+// getUserByLogin();
+// function validateLogin(e, username, password) {
+//   if (password.value) {
+//   }
+//   // validateEmail()
 // }
 
-// const getRandomUser = () => {
-//   return travelerData[getRandomIndex(travelerData)];
-// }
+function validateLogin() {
+  console.log(emailInput.value);
+  console.log(passwordInput.value);
 
-const newTravelerInstances = () => {
-  traveler = new Traveler(travelerData[4], tripData); //travelerData[0] - replaced with the user who logs in .find
+  const ID = Number(emailInput.value.match(/[0-9]+/g)[0]);
+  console.log(ID);
+  loginButton.onclick = function () {
+    if (
+      ID &&
+      emailInput.value === `traveler${ID}` &&
+      passwordInput.value === "travel"
+    ) {
+      traveler = travelerData.find((traveler) => traveler.id === ID);
+      // travelerTrips = tripData
+      console.log(tripData);
+      console.log(traveler);
+      // fetchTravelData();
+      updateDataModel(traveler, tripData);
+      renderPage(traveler.trips, destinationData);
+      loginPage.classList.add("hidden");
+      header.classList.remove("hidden");
+      main.classList.remove("hidden");
+    } else if (
+      ID ||
+      (!ID &&
+        !emailInput.value === `traveler${ID}` &&
+        !passwordInput.value === "travel")
+    ) {
+      loginError.innerText = "Sorry Wrong Information, Please Try Again";
+    }
+  };
+}
+
+function handleLoginButton() {
+  if (!emailInput.value && !passwordInput.value) {
+    loginButton.onclick = function () {
+      if (!emailInput.value && !passwordInput.value) {
+        loginButton.disabled = true;
+      }
+      if (emailInput.value && passwordInput.value) {
+        loginButton.disabled = false;
+      }
+    };
+  }
+}
+
+const newTravelerInstances = (travelerInfo, trips) => {
+  traveler = new Traveler(travelerInfo, trips); //travelerData[0] - replaced with the user who logs in .find
 };
 
 const newTrips = () => (trips = new Trip(tripData));
@@ -97,7 +147,6 @@ const displaySpentThisYear = (travelerTrips, destinationData) => {
   yearlyCost.innerText = `$${amountSpent} spent this year so far`;
 };
 
-// getUserByLogin()
 const displayTrips = () => {
   const userUpcomingTrips = traveler.getTripItinerary("upcoming");
   const userPastTrips = traveler.getTripItinerary("past");
@@ -228,7 +277,7 @@ function addNewTripData1(newDataEntry) {
           tripData = data[1].trips;
           destinationData = data[2].destinations;
           postID = data[1].trips.length + 1;
-          updateDataModel(data);
+          updateDataModel(traveler, tripData);
           renderPage(traveler.trips, destinationData);
           postID++;
           clearForm();
@@ -236,8 +285,6 @@ function addNewTripData1(newDataEntry) {
       }
     })
     .catch((err) => {
-      //update error message on DOM!
-      //querySelect and innerText. the err.message
       errorMessage.innerText = err.message;
     });
 }
@@ -263,3 +310,4 @@ const postNewTrip = () => {
 
 estimateTripButton.addEventListener("click", createUserTrip);
 buyButton.addEventListener("click", postNewTrip);
+loginButton.addEventListener("click", validateLogin);
