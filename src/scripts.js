@@ -163,6 +163,10 @@ const handleButtons = () => {
       lengthOfTripInput.value &&
       estimateTripButton.innerText === "Estimate Trip"
     ) {
+      lengthOfTripInput.disabled = true;
+      departureDateInput.disabled = true;
+      destinationDropDown.disabled = true;
+      numberOfTravelersInput.disabled = true;
       buyButton.disabled = false;
       estimateTripButton.innerText = `Back`;
       totalCostDisplay.innerText = `$${traveler.getEstimatedCost(
@@ -176,6 +180,10 @@ const handleButtons = () => {
       !lengthOfTripInput.value &&
       estimateTripButton.innerText === "Estimate Trip"
     ) {
+      lengthOfTripInput.disabled = false;
+      departureDateInput.disabled = false;
+      destinationDropDown.disabled = false;
+      numberOfTravelersInput.disabled = false;
       buyButton.disabled = true;
       totalCostDisplay.innerText = `Please Fill Out Form for Estimate`;
       estimateTripButton.innerText === "Back";
@@ -186,12 +194,20 @@ const handleButtons = () => {
       lengthOfTripInput.value &&
       estimateTripButton.innerText === "Back"
     ) {
+      lengthOfTripInput.disabled = false;
+      departureDateInput.disabled = false;
+      destinationDropDown.disabled = false;
+      numberOfTravelersInput.disabled = false;
       clearForm();
       estimateTripButton.innerText = "Estimate Trip";
       buyButton.disabled = true;
     }
     buyButton.onclick = function () {
       totalCostDisplay.innerText = "";
+      lengthOfTripInput.disabled = false;
+      departureDateInput.disabled = false;
+      destinationDropDown.disabled = false;
+      numberOfTravelersInput.disabled = false;
       buyButton.disabled = true;
       estimateTripButton.disabled = false;
       clearForm();
