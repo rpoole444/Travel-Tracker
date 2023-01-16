@@ -27,38 +27,48 @@ class Traveler {
   }
 
   totalYearlySpent(userTrips, destinations) {
-    const tripsThisYear = userTrips.filter(
-      (trip) =>
-        dayjs(trip.date).isBefore(dayjs().endOf("year")) &&
-        dayjs(trip.date).isAfter(dayjs().startOf("year"))
-    );
+    if (userTrips && destinations) {
+      const tripsThisYear = userTrips.filter(
+        (trip) =>
+          dayjs(trip.date).isBefore(dayjs().endOf("year")) &&
+          dayjs(trip.date).isAfter(dayjs().startOf("year"))
+      );
 
-    const costInAYear = tripsThisYear.reduce((sum, trip) => {
-      destinations.forEach((place) => {
-        if (place.id === trip.destinationID) {
-          sum +=
-            place.estimatedLodgingCostPerDay * trip.duration +
-            place.estimatedFlightCostPerPerson * trip.travelers;
-        }
-      });
-      return sum;
-    }, 0);
-    const withBookingFee = costInAYear * 0.1;
-    const Total = withBookingFee + costInAYear;
+      const costInAYear = tripsThisYear.reduce((sum, trip) => {
+        destinations.forEach((place) => {
+          if (place.id === trip.destinationID) {
+            sum +=
+              place.estimatedLodgingCostPerDay * trip.duration +
+              place.estimatedFlightCostPerPerson * trip.travelers;
+          }
+        });
+        return sum;
+      }, 0);
+      const withBookingFee = costInAYear * 0.1;
+      const Total = withBookingFee + costInAYear;
 
-    return Total.toFixed(2);
+      return Total.toFixed(2);
+    } else {
+      console.log("There are No Dates in the last year");
+      return "There are No Dates in the last year";
+    }
   }
 
   getEstimatedCost(userTrips, destinations, currentTripEntry) {
-    return destinations.reduce((sum, place) => {
-      if (place.id === currentTripEntry.destinationID) {
-        sum +=
-          place.estimatedLodgingCostPerDay * currentTripEntry.duration +
-          place.estimatedFlightCostPerPerson * currentTripEntry.travelers;
-      }
-      return sum;
-    }, 0);
+    if (userTrips && destinations && currentTripEntry) {
+      const x = destinations.reduce((sum, place) => {
+        if (place.id === currentTripEntry.destinationID) {
+          sum +=
+            place.estimatedLodgingCostPerDay * currentTripEntry.duration +
+            place.estimatedFlightCostPerPerson * currentTripEntry.travelers;
+        }
+        return sum;
+      }, 0);
+      return x;
+    } else {
+      console.log("Sorry Wrong Information, Please Try Again");
+      return "Sorry Wrong Information, Please Try Again";
+    }
   }
 }
-
 module.exports = Traveler;
