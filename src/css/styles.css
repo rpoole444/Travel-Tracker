@@ -175,6 +175,15 @@ h2 {
   background-image: url(/Users/reidpoole/turing_work/2mod/travelTrackerAll/travelTracker/dist/loginwindowpic.jpg);
 }
 
+.login-submit {
+  height: 3vh;
+  width: 5vw;
+}
+
+.login-input {
+  height: 3vh;
+  width: 9vw;
+}
 .container {
   display: flex;
   flex-direction: column;
