@@ -6,6 +6,7 @@ import apiCalls from "../src/apiCalls";
 const dayjs = require("dayjs");
 
 const greeting = document.querySelector(".greeting");
+const date = document.querySelector(".today");
 const upcomingTrips = document.querySelector(".upcoming-trips");
 const pastTrips = document.querySelector(".past-trips");
 const yearlyCost = document.querySelector(".total-spent-ty");
@@ -50,8 +51,6 @@ apiCalls.fetchAllData().then((data) => {
 // };
 
 const updateDataModel = (traveler, trips) => {
-  console.log("DM User:", traveler);
-  console.log("DM trips: ", trips);
   newTravelerInstances(traveler, trips);
   newTrips();
   newDestinations();
@@ -71,14 +70,12 @@ const loadPageFunctions = () => {
 };
 
 function validateLogin() {
-  console.log(emailInput.value);
-  console.log(passwordInput.value);
-
   const ID = Number(emailInput.value.match(/[0-9]+/g)[0]);
   console.log(ID);
   loginButton.onclick = function () {
     if (
-      ID &&
+      ID >= 1 &&
+      ID <= 50 &&
       emailInput.value === `traveler${ID}` &&
       passwordInput.value === "travel"
     ) {
@@ -88,13 +85,12 @@ function validateLogin() {
       loginPage.classList.add("hidden");
       header.classList.remove("hidden");
       main.classList.remove("hidden");
-    } else if (
-      !ID &&
-      emailInput.value !== `traveler${ID}` &&
-      passwordInput.value !== "travel"
-    ) {
+    } else {
       loginError.innerText = "Sorry Wrong Information, Please Try Again";
-    }
+      setTimeout(function () {
+        clearLoginError();
+      }, 3000);
+    } //else error handle for
   };
 }
 
@@ -142,6 +138,14 @@ const populateTripChoice = () => {
 
 const greetUser = () => {
   greeting.innerHTML = `Hi, ${traveler.findFirstName()}!`;
+  date.innerText = `Today is ${dayjs("2022/12/31").format("MM/DD/YYYY")}`;
+  departureDateInput.innerHTML = `<input
+      type="date"
+      name="departure-date"
+      id="departureDate"
+      class="departure-date"
+      min="${dayjs("2022/12/31").format("MM/DD/YYYY")}"
+    />`;
 };
 
 const displaySpentThisYear = (travelerTrips, destinationData) => {
