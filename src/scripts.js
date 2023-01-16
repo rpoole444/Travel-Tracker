@@ -14,6 +14,7 @@ const header = document.querySelector(".header");
 const main = document.querySelector(".main");
 
 const logoutButton = document.querySelector(".logout-button");
+const inputForm = document.querySelector(".user-input");
 const destinationDropDown = document.querySelector("#destinationsDD");
 const lengthOfTripInput = document.querySelector("#lengthInput");
 const numberOfTravelersInput = document.querySelector("#travelersInput");
