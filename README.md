@@ -3,7 +3,7 @@ The purpose of this app is to help users find and keep track of upcoming and pas
 
 ## Setup
 
-1. click this link -[ https://github.com/jheidepriem/fitLit-tracker](https://github.com/rpoole444/Travel-Tracker)
+1. click this link -[Reid's Travel Tracker](https://github.com/rpoole444/Travel-Tracker)
 2. Fork this repo - on the top right corner of this page, click the **Fork** button.
 3. Once you have cloned the repo, change into the directory and install the project dependencies. Run `npm install` to install project dependencies.
 4. Run `npm start` in the terminal to see the HTML page. `Control + C` is the command to stop running the local server.  Closing the terminal without stopping the server first could allow the server to continue to run in the background and cause problems. This command is not specific to Webpack; make note of it for future use.    
