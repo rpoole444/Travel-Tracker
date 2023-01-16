@@ -1,14 +1,10 @@
 class Destinations {
-  constructor(destinations){
-    this.destinations = destinations
-  }
-  getDestinationById(id){
-    const theDestination = this.destinations.find(destination => {
-      return destination.id === id
-    })
-    return theDestination
+  constructor(destinations) {
+    this.destinations = destinations;
   }
 
-
+  getDestinationById(id) {
+    return this.destinations.find((destination) => destination.id === id);
+  }
 }
-module.exports = Destinations
+module.exports = Destinations;

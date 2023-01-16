@@ -5,33 +5,32 @@ import Trip from "../src/Trip";
 import apiCalls from "../src/apiCalls";
 const dayjs = require("dayjs");
 
+// ---------------------querySelectors---------------------------------
+
+const header = document.querySelector(".header");
+const main = document.querySelector(".main");
 const greeting = document.querySelector(".greeting");
 const date = document.querySelector(".today");
 const upcomingTrips = document.querySelector(".upcoming-trips");
 const pastTrips = document.querySelector(".past-trips");
+const totalCostDisplay = document.querySelector(".total-cost-display");
 const yearlyCost = document.querySelector(".total-spent-ty");
-const header = document.querySelector(".header");
-const main = document.querySelector(".main");
-
-const logoutButton = document.querySelector(".logout-button");
 const destinationDropDown = document.querySelector("#destinationsDD");
 const lengthOfTripInput = document.querySelector("#lengthInput");
 const numberOfTravelersInput = document.querySelector("#travelersInput");
 const departureDateInput = document.querySelector("#departureDate");
 const estimateTripButton = document.querySelector(".submit-button");
-const errorMessage = document.querySelector(".error-message");
+const logoutButton = document.querySelector(".logout-button");
+const loginButton = document.querySelector(".login-submit");
 const buyButton = document.querySelector(".buy-button");
-const totalCostDisplay = document.querySelector(".total-cost-display");
-
+const errorMessage = document.querySelector(".error-message");
+const loginError = document.querySelector(".login-error");
 const loginPage = document.querySelector(".login");
 const emailInput = document.querySelector("#emailInput");
 const passwordInput = document.querySelector("#passwordInput");
-const loginButton = document.querySelector(".login-submit");
-const loginError = document.querySelector(".login-error");
 
-// event listener loginbutton click handleLogin
-// if emailInput.value && pasweedInput.value
-let user;
+// --------------------------global variables----------------------------
+
 let traveler;
 let travelerData;
 let trips;
@@ -40,7 +39,9 @@ let destinations;
 let destinationData;
 let postID;
 let currentTripEntry;
-// const fetchTravelData = () => {
+
+// -----------------------apiCalls/fetch----------------------------------------
+
 apiCalls.fetchAllData().then((data) => {
   travelerData = data[0].travelers;
   tripData = data[1].trips;
@@ -48,7 +49,8 @@ apiCalls.fetchAllData().then((data) => {
   postID = data[1].trips.length + 1;
   loadPageFunctions();
 });
-// };
+
+// ------------------load and update functions--------------------------------------
 
 const updateDataModel = (traveler, trips) => {
   newTravelerInstances(traveler, trips);
@@ -69,29 +71,54 @@ const loadPageFunctions = () => {
   validateLogin();
 };
 
+// -----------------------Login functions-----------------------------
+
 function validateLogin() {
-  const ID = Number(emailInput.value.match(/[0-9]+/g)[0]);
-  console.log(ID);
+  const userID = Number(emailInput.value.match(/[0-9]+/g)[0]);
+
   loginButton.onclick = function () {
     if (
-      ID >= 1 &&
-      ID <= 50 &&
-      emailInput.value === `traveler${ID}` &&
+      userID >= 1 &&
+      userID <= 50 &&
+      emailInput.value === `traveler${userID}` &&
       passwordInput.value === "travel"
     ) {
-      traveler = travelerData.find((traveler) => traveler.id === ID);
+      traveler = travelerData.find((traveler) => traveler.id === userID);
       updateDataModel(traveler, tripData);
       renderPage(traveler.trips, destinationData);
       loginPage.classList.add("hidden");
       header.classList.remove("hidden");
       main.classList.remove("hidden");
     } else {
-      loginError.innerText = "Sorry Wrong Information, Please Try Again";
+      loginError.innerText = "Sorry incorrect userinfo , Please Try Again";
       setTimeout(function () {
         clearLoginError();
       }, 3000);
-    } //else error handle for
+    }
   };
+}
+
+function handleLoginButton() {
+  if (!emailInput.value && !passwordInput.value) {
+    loginButton.onclick = function () {
+      loginError.innerText = "Error, please try again.";
+      loginButton.disabled = true;
+      setTimeout(function () {
+        clearLoginError();
+      }, 3000);
+    };
+  }
+}
+
+function clearLoginError() {
+  emailInput.value = "";
+  passwordInput.value = "";
+  loginError.innerText = "";
+  loginButton.disabled = false;
+}
+
+function clearError() {
+  totalCostDisplay.innerText = "";
 }
 
 function backToLogin() {
@@ -102,27 +129,10 @@ function backToLogin() {
   header.classList.add("hidden");
   main.classList.add("hidden");
 }
-
-function handleLoginButton() {
-  if (!emailInput.value && !passwordInput.value) {
-    loginButton.onclick = function () {
-      loginError.innerText = "please try again!";
-      loginButton.disabled = true;
-      setTimeout(function () {
-        clearLoginError();
-      }, 3000);
-    };
-  }
-}
-function clearLoginError() {
-  emailInput.value = "";
-  passwordInput.value = "";
-  loginError.innerText = "";
-  loginButton.disabled = false;
-}
+//-----------------Data Model functions---------------------
 
 const newTravelerInstances = (travelerInfo, trips) => {
-  traveler = new Traveler(travelerInfo, trips); //travelerData[0] - replaced with the user who logs in .find
+  traveler = new Traveler(travelerInfo, trips);
 };
 
 const newTrips = () => (trips = new Trip(tripData));
@@ -130,28 +140,12 @@ const newTrips = () => (trips = new Trip(tripData));
 const newDestinations = () =>
   (destinations = new Destinations(destinationData));
 
-const populateTripChoice = () => {
-  destinations.destinations.forEach((place) => {
-    destinationDropDown.innerHTML += `<option value="${place.id}">${place.destination}</option>`;
-  });
-};
-
-const greetUser = () => {
-  greeting.innerHTML = `Hi, ${traveler.findFirstName()}!`;
-  date.innerText = `Today is ${dayjs("2022/12/31").format("MM/DD/YYYY")}`;
-  departureDateInput.innerHTML = `<input
-      type="date"
-      name="departure-date"
-      id="departureDate"
-      class="departure-date"
-      min="${dayjs("2022/12/31").format("MM/DD/YYYY")}"
-    />`;
-};
-
 const displaySpentThisYear = (travelerTrips, destinationData) => {
   const amountSpent = traveler.totalYearlySpent(travelerTrips, destinationData);
   yearlyCost.innerText = `$${amountSpent} spent this year so far`;
 };
+
+// -----------DOM Related Functions -----------------------
 
 const displayTrips = () => {
   const userUpcomingTrips = traveler.getTripItinerary("upcoming");
@@ -167,7 +161,7 @@ const displayTrips = () => {
         <img src="${userDestination.image}" alt="${
       userDestination.alt
     }" class="location-img">
-          <div>
+          <div class="card-info">
             <p class="location">${userDestination.destination}</p>
             <p class="date">${dayjs(trip.date).format("MM/DD/YY")}</p>
             <p class="travel-num">${trip.travelers} travelers</p>
@@ -182,7 +176,7 @@ const displayTrips = () => {
           <img src="${userDestination.image}" alt="${
       userDestination.alt
     }" class="location-img">
-            <div>
+            <div class="card-info">
               <p class="location">${userDestination.destination}</p>
               <p class="date">${dayjs(trip.date).format("MM/DD/YY")}</p>
               <p class="travel-num">${trip.travelers} travelers</p>
@@ -192,12 +186,27 @@ const displayTrips = () => {
   });
 };
 
-function clearForm() {
-  destinationDropDown.value = "";
-  numberOfTravelersInput.value = "";
-  departureDateInput.value = "";
-  lengthOfTripInput.value = "";
-}
+const populateTripChoice = () => {
+  let arr = [];
+  destinations.destinations.forEach((place) => {
+    arr.push(
+      (destinationDropDown.innerHTML += `<option value="${place.id}">${place.destination}</option>`)
+    );
+  });
+  return arr;
+};
+
+const greetUser = () => {
+  greeting.innerHTML = `Hi, ${traveler.findFirstName()}!`;
+  date.innerText = `Today is ${dayjs("2022/12/31").format("MM/DD/YYYY")}`;
+  departureDateInput.innerHTML = `<input
+      type="date"
+      name="departure-date"
+      id="departureDate"
+      class="departure-date"
+      min="${dayjs("2022/12/31").format("MM/DD/YYYY")}"
+    />`;
+};
 
 const handleButtons = () => {
   buyButton.disabled = true;
@@ -233,6 +242,9 @@ const handleButtons = () => {
       numberOfTravelersInput.disabled = false;
       buyButton.disabled = true;
       totalCostDisplay.innerText = `Please Fill Out Form for Estimate`;
+      setTimeout(function () {
+        clearError();
+      }, 2000);
       estimateTripButton.innerText === "Back";
     } else if (
       destinationDropDown.value &&
@@ -257,24 +269,32 @@ const handleButtons = () => {
       numberOfTravelersInput.disabled = false;
       buyButton.disabled = true;
       estimateTripButton.disabled = false;
-      clearForm();
-
+      totalCostDisplay.innerText = "You're Booked, Bon Voyage!!";
       estimateTripButton.innerText = `Estimate Trip`;
+      clearForm();
     };
   };
 };
 
-//--------WIP GATHER EVENT LISTENER info------
+function clearForm() {
+  destinationDropDown.value = "";
+  numberOfTravelersInput.value = "";
+  departureDateInput.value = "";
+  lengthOfTripInput.value = "";
+  setTimeout(function () {
+    totalCostDisplay.innerText = "";
+  }, 3000);
+}
+
+//----------POST REQUEST and UPDATE DATA-------------
 
 function addNewTripData1(newDataEntry) {
-  console.log("POST DATA:", newDataEntry);
   return fetch("http://localhost:3001/api/v1/trips", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newDataEntry),
   })
     .then((res) => {
-      console.log(res);
       if (!res.ok) {
         throw new Error(`${res.status} - ${res.statusText}`);
       } else {
@@ -299,7 +319,7 @@ function createUserTrip(event) {
   event.preventDefault();
   errorMessage.innerText = "";
   currentTripEntry = {
-    id: Number(postID), //check into number() vs parseInt()
+    id: Number(postID),
     userID: Number(traveler.id),
     destinationID: Number(destinationDropDown.value),
     travelers: Number(numberOfTravelersInput.value),
@@ -313,6 +333,8 @@ function createUserTrip(event) {
 const postNewTrip = () => {
   addNewTripData1(currentTripEntry);
 };
+
+// ----------------------Event Listeners-----------------
 
 estimateTripButton.addEventListener("click", createUserTrip);
 buyButton.addEventListener("click", postNewTrip);

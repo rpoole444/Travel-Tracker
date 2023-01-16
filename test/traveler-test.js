@@ -10,8 +10,10 @@ describe("traveler", () => {
   let trip4;
   let trip5;
   let trip6;
-  let traveler;
-  let travelerData;
+  let traveler1;
+  let traveler2;
+  let travelerData1;
+  let travelerData2;
   let trips;
   let destinations;
   let destination1;
@@ -124,9 +126,13 @@ describe("traveler", () => {
       estimatedFlightCostPerPerson: 830,
     };
 
-    travelerData = {
+    travelerData1 = {
       id: 44,
       name: "Ham Leadbeater",
+    };
+    travelerData2 = {
+      id: 4,
+      name: "Brucy Boy",
     };
     destinations = new Destinations([
       destination1,
@@ -134,9 +140,11 @@ describe("traveler", () => {
       destination3,
       destination4,
       destination5,
+      destination6,
     ]);
     trips = [trip1, trip2, trip3, trip4, trip5, trip6];
-    traveler = new Traveler(travelerData, trips);
+    traveler1 = new Traveler(travelerData1, trips);
+    traveler2 = new Traveler(travelerData2, trips);
   });
 
   it("should be a function", () => {
@@ -144,49 +152,99 @@ describe("traveler", () => {
   });
 
   it("should be an instance of traveler", () => {
-    expect(traveler).to.be.an.instanceOf(Traveler);
+    expect(traveler1).to.be.an.instanceOf(Traveler);
+    expect(traveler2).to.be.an.instanceOf(Traveler);
   });
 
   it("should have and id", () => {
-    expect(traveler.id).to.equal(44);
+    expect(traveler1.id).to.equal(44);
+    expect(traveler2.id).to.equal(4);
   });
 
   it("should have a name", () => {
-    expect(traveler.name).to.equal("Ham Leadbeater");
+    expect(traveler1.name).to.equal("Ham Leadbeater");
+    expect(traveler2.name).to.equal("Brucy Boy");
   });
 
   it("should have trips", () => {
-    //trip4 is ommitted because it doesn't belong to this user
-    expect(traveler.trips).to.deep.equal([trip1, trip2, trip3, trip5, trip6]);
+    expect(traveler1.trips).to.deep.equal([trip1, trip2, trip3, trip5, trip6]);
+    expect(traveler2.trips).to.deep.equal([trip4]);
   });
 
   it("should be able to have just a First Name", () => {
-    expect(traveler.findFirstName()).to.equal("Ham");
+    expect(traveler1.findFirstName()).to.equal("Ham");
+    expect(traveler2.findFirstName()).to.equal("Brucy");
+  });
+
+  it("should have pending trips", () => {
+    expect(traveler1.checkPendingStatus("pending")).to.deep.equal([
+      trip5,
+      trip6,
+    ]);
+    expect(traveler2.checkPendingStatus("pending")).to.deep.equal([]);
   });
 
   it("should have past trips", () => {
-    expect(traveler.getTripItinerary("past")).to.deep.equal([
+    expect(traveler1.getTripItinerary("past")).to.deep.equal([
       trip1,
       trip2,
       trip3,
       trip5,
-    ]); //today is 12/31/20
-  });
+    ]);
+    expect(traveler2.getTripItinerary("past")).to.deep.equal([trip4]);
+  }); //"today" is 12/31/2022
 
   it("should have upcoming trips", () => {
-    expect(traveler.getTripItinerary("upcoming")).to.deep.equal([trip6]);
-  });
-
-  it("should have pending trips", () => {
-    expect(traveler.checkPendingStatus("pending")).to.deep.equal([
-      trip5,
-      trip6,
-    ]);
+    expect(traveler1.getTripItinerary("upcoming")).to.deep.equal([trip6]);
+    expect(traveler2.getTripItinerary("upcoming")).to.deep.equal([]);
   });
 
   it("should have the yearly total spent traveling", () => {
     expect(
-      traveler.totalYearlySpent(traveler.trips, destinations.destinations)
+      traveler1.totalYearlySpent(traveler1.trips, destinations.destinations)
+    ).to.equal("6094.00");
+    expect(
+      traveler2.totalYearlySpent(traveler2.trips, destinations.destinations)
     ).to.equal("0.00");
+  });
+
+  it("should return an error message with no information in parameter", () => {
+    traveler1.trips = undefined;
+    travelerData1 = undefined;
+    expect(
+      traveler1.totalYearlySpent(traveler1.trips, destinations.destinations)
+    ).to.deep.equal("There are No Dates in the last year");
+  });
+
+  it("should return 0 if the traveler has 0 trips in the last year", () => {
+    expect(
+      traveler2.totalYearlySpent(traveler2.trips, destinations.destinations)
+    ).to.deep.equal("0.00");
+  });
+
+  it("should return the average of the trip with ", () => {
+    expect(
+      traveler1.getEstimatedCost(
+        traveler1.trips,
+        destinations.destinations,
+        trip6
+      )
+    ).to.deep.equal(5540);
+    expect(
+      traveler2.getEstimatedCost(
+        traveler2.trips,
+        destinations.destinations,
+        trip4
+      )
+    ).to.deep.equal(7120);
+  });
+
+  it("should return an error message with no information in parameter", () => {
+    expect(traveler1.getEstimatedCost()).to.deep.equal(
+      "Sorry Wrong Information, Please Try Again"
+    );
+    expect(traveler2.getEstimatedCost()).to.deep.equal(
+      "Sorry Wrong Information, Please Try Again"
+    );
   });
 });
