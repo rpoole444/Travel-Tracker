@@ -74,23 +74,23 @@ const loadPageFunctions = () => {
 // -----------------------Login functions-----------------------------
 
 function validateLogin() {
-  const ID = Number(emailInput.value.match(/[0-9]+/g)[0]);
-  console.log(ID);
+  const userID = Number(emailInput.value.match(/[0-9]+/g)[0]);
+
   loginButton.onclick = function () {
     if (
-      ID >= 1 &&
-      ID <= 50 &&
-      emailInput.value === `traveler${ID}` &&
+      userID >= 1 &&
+      userID <= 50 &&
+      emailInput.value === `traveler${userID}` &&
       passwordInput.value === "travel"
     ) {
-      traveler = travelerData.find((traveler) => traveler.id === ID);
+      traveler = travelerData.find((traveler) => traveler.id === userID);
       updateDataModel(traveler, tripData);
       renderPage(traveler.trips, destinationData);
       loginPage.classList.add("hidden");
       header.classList.remove("hidden");
       main.classList.remove("hidden");
     } else {
-      loginError.innerText = "Sorry Wrong Information, Please Try Again";
+      loginError.innerText = "Sorry incorrect userinfo , Please Try Again";
       setTimeout(function () {
         clearLoginError();
       }, 3000);
@@ -101,7 +101,7 @@ function validateLogin() {
 function handleLoginButton() {
   if (!emailInput.value && !passwordInput.value) {
     loginButton.onclick = function () {
-      loginError.innerText = "please try again!";
+      loginError.innerText = "Error, please try again.";
       loginButton.disabled = true;
       setTimeout(function () {
         clearLoginError();
@@ -187,9 +187,13 @@ const displayTrips = () => {
 };
 
 const populateTripChoice = () => {
+  let arr = [];
   destinations.destinations.forEach((place) => {
-    destinationDropDown.innerHTML += `<option value="${place.id}">${place.destination}</option>`;
+    arr.push(
+      (destinationDropDown.innerHTML += `<option value="${place.id}">${place.destination}</option>`)
+    );
   });
+  return arr;
 };
 
 const greetUser = () => {
@@ -285,14 +289,12 @@ function clearForm() {
 //----------POST REQUEST and UPDATE DATA-------------
 
 function addNewTripData1(newDataEntry) {
-  console.log("POST DATA:", newDataEntry);
   return fetch("http://localhost:3001/api/v1/trips", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newDataEntry),
   })
     .then((res) => {
-      console.log(res);
       if (!res.ok) {
         throw new Error(`${res.status} - ${res.statusText}`);
       } else {
