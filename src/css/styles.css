@@ -40,13 +40,13 @@ header {
 }
 
 h1 {
-  color: #f78764;
+  color: white;
   font-size: 6vh;
   padding: 3vh 0 0 3vw;
 }
 .greeting,
 .today {
-  color: #f78764;
+  color: white;
 }
 .today {
   font-size: 2vh;
@@ -128,8 +128,9 @@ h2 {
 }
 
 .location-img {
+  margin-top: 1vh;
   border-radius: 12px;
-  height: 11vh;
+  height: 12vh;
   width: 17vw;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
   /* border: 2px solid brown; */
@@ -139,8 +140,8 @@ h2 {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 20vh;
-  width: 17vw;
+  height: 22vh;
+  width: 20vw;
   border: 6px solid #634133;
   background-color: #634133;
   border-radius: 12px;
@@ -152,7 +153,7 @@ h2 {
 .travel-num,
 .status {
   font-size: 2vh;
-  color: #f78764;
+  color: white;
 }
 
 .upcoming-trips,
