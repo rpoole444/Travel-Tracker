@@ -27,14 +27,5 @@ The purpose of this app is to help users find and keep track of upcoming and pas
 Some future features would be to add a travel agent window and login where the agent could manage the travler bookings!
 
 ## GIF
-![fitGif](https://user-images.githubusercontent.com/110955503/207127036-e1385276-5b43-4af0-84c3-173de74355b0.gif)
+[![fitGif](https://user-images.githubusercontent.com/110955503/207127036-e1385276-5b43-4af0-84c3-173de74355b0.gif)](https://www.loom.com/share/0e09f8fee8964d8eadf1e062db71f01e)
 
-
-
-## Deploying to GitHub Pages
-
-_If you are finished with the functionality and testing of your project_, then you can consider deploying your project to the web! This way anyone can play it without cloning down your repo.
-
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
-
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
