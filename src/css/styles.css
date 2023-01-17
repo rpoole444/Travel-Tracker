@@ -33,12 +33,17 @@ body {
   color: #72a98fb8;
 }
 .title-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: baseline;
   height: 12vh;
   width: 50vw;
 }
 
 .plane-emoji {
   font-size: 7vh;
+  height: 12vh;
 }
 
 header {
