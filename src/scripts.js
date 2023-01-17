@@ -90,7 +90,7 @@ function validateLogin() {
       header.classList.remove("hidden");
       main.classList.remove("hidden");
     } else {
-      loginError.innerText = "Sorry incorrect userinfo , Please Try Again";
+      loginError.innerText = "Sorry! Incorrect Userinfo, Please Try Again";
       setTimeout(function () {
         clearLoginError();
       }, 3000);
