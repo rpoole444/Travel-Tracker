@@ -13,7 +13,7 @@ body {
   flex-direction: column;
   height: 95vh;
   width: 100vw;
-  background-color: #634133;
+  background-color: #3d5a6c;
 }
 
 .main {
@@ -22,7 +22,8 @@ body {
   justify-content: space-around;
   width: 100vw;
   height: 85vh;
-  background-color: #b86f52;
+  background-color: #72a98f;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* header */
@@ -32,7 +33,6 @@ header {
   justify-content: space-between;
   width: 100vw;
   height: 12vh;
-  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .logout-button {
@@ -40,14 +40,14 @@ header {
 }
 
 h1 {
-  color: white;
+  color: snow;
   font-size: 6vh;
   padding: 3vh 0 0 3vw;
 }
 
 .greeting,
 .today {
-  color: white;
+  color: snow;
 }
 
 .today {
@@ -63,6 +63,7 @@ h2 {
 
 /* Input Fields(left-side) */
 .input-field {
+  color: snow;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -70,8 +71,7 @@ h2 {
   height: 73vh;
   width: 23vw;
   margin-top: 6vh;
-  border: 3px solid #f78764;
-  background-color: #f78764;
+  background-color: #3d5a6c;
   border-radius: 12px;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
@@ -92,13 +92,16 @@ h2 {
 }
 
 .title2 {
+  color: snow;
   font-size: 2vh;
 }
 
 .user-input {
+  color: black;
   display: flex;
   flex-direction: column;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
+  background-color: #72a98f;
   align-items: center;
   justify-content: space-evenly;
   height: 35vh;
@@ -123,45 +126,50 @@ h2 {
   justify-content: space-around;
   height: 55vh;
   width: 65vw;
-  border: 6px solid #f78764;
-  background-color: #f78764;
+  background-color: #69353f;
   border-radius: 12px;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
-  overflow-y: scroll;
-  scrollbar-color: #f78764;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.past-trips {
+  margin-bottom: 2vh;
 }
 
 .location-img {
   margin-top: 1vh;
   border-radius: 12px;
-  height: 12vh;
+  height: 11vh;
   width: 17vw;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .location-card {
+  margin: 1.5vh 0 0 1.5vw;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   height: 22vh;
   width: 20vw;
-  border: 6px solid #634133;
-  background-color: #634133;
+  background-color: #3d5a6c;
   border-radius: 12px;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .card-info {
-  margin: 0.5vh;
+  margin: 1vh 0 1vh 0;
   height: 10vh;
-  width: 18vw;
+  width: 16vw;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background-color: #b86f52;
+  background-color: #72a98f;
+  overflow-y: auto;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
@@ -170,12 +178,6 @@ h2 {
 .travel-num,
 .status {
   font-size: 1.6vh;
-}
-
-.upcoming-trips,
-.past-trips {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
 }
 
 /* login page styles  */
@@ -212,8 +214,12 @@ h2 {
 
 .login-error {
   color: rgb(211, 45, 45);
-  font-size: 3.5vh;
+  font-size: 2vh;
   font-weight: 800;
+}
+.login-title {
+  color: rgba(0, 0, 0);
+  margin-right: 3vw;
 }
 
 .container {
@@ -225,7 +231,8 @@ h2 {
   width: 55vh;
   box-shadow: 2px 2px 5px 0 rgba(103, 94, 94, 0.792);
   border-radius: 12px;
-  background-color: rgba(210, 108, 19, 0.549);
+  background-color: #72a98fb8;
+  color: black;
 }
 
 .hidden {
