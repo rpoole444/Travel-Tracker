@@ -26,6 +26,6 @@ The purpose of this app is to help users find and keep track of upcoming and pas
 ## Future Features
 Some future features would be to add a travel agent window and login where the agent could manage the travler bookings!
 
-## GIF
+## Preview
 https://www.loom.com/share/0e09f8fee8964d8eadf1e062db71f01e
 
