@@ -28,4 +28,6 @@ Some future features would be to add a travel agent window and login where the a
 
 ## Preview
 https://www.loom.com/share/0e09f8fee8964d8eadf1e062db71f01e
+![Screen Shot 2023-01-17 at 12 26 27 PM](https://user-images.githubusercontent.com/111818942/212981103-6cdf8733-005e-4bb9-8f07-05db8465eea7.png)
+![Screen Shot 2023-01-17 at 12 26 58 PM](https://user-images.githubusercontent.com/111818942/212981115-078f010f-89e6-4b69-9912-d962db2faab2.png)
 
